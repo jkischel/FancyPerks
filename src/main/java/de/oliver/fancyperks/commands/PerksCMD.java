@@ -1,10 +1,9 @@
 package de.oliver.fancyperks.commands;
 
-import de.oliver.fancylib.MessageHelper;
-import de.oliver.fancyperks.FancyPerks;
-import de.oliver.fancyperks.gui.customInventories.PerksInventory;
-import de.oliver.fancyperks.perks.Perk;
-import de.oliver.fancyperks.perks.PerkRegistry;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,9 +12,11 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+import de.oliver.fancylib.MessageHelper;
+import de.oliver.fancyperks.FancyPerks;
+import de.oliver.fancyperks.gui.customInventories.PerksInventory;
+import de.oliver.fancyperks.perks.Perk;
+import de.oliver.fancyperks.perks.PerkRegistry;
 
 public class PerksCMD implements CommandExecutor, TabCompleter {
 

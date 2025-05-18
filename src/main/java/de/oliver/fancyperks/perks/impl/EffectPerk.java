@@ -9,17 +9,19 @@ import org.bukkit.potion.PotionEffectType;
 public class EffectPerk extends Perk {
 
     private final PotionEffectType effectType;
+    private final int effectStrength;
 
-    public EffectPerk(String systemName, String name, String description, ItemStack displayName, PotionEffectType effectType) {
+    public EffectPerk(String systemName, String name, String description, ItemStack displayName, PotionEffectType effectType, int effectStrength) {
         super(systemName, name, description, displayName);
         this.effectType = effectType;
+        this.effectStrength = effectStrength;
     }
 
     @Override
     public boolean grant(Player player) {
         if(!super.grant(player)) return false;
 
-        player.addPotionEffect(new PotionEffect(effectType, -1, 0, true, false, false));
+        player.addPotionEffect(new PotionEffect(effectType, -1, effectStrength, true, false, false));
         return true;
     }
 

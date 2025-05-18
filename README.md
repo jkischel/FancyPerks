@@ -9,11 +9,12 @@
 
 **-------------------------------------------**
 
-**This plugin is no longer being supported, developed and maintained. There will be only updates for real high critical security issues. Do not expect any new feature or bug fixed.**
+This is an extended version of FancyPerks by Oliver Schlueter.
+As the original version of this plugin is not developed anymore and even archived in Github, I hope this version can help out :)
 
 **-------------------------------------------**
 
-A simple plugin that adds some fancy perks to your server.
+FancyPerks is a simple plugin that adds some fancy perks to your server.
 
 **Only supported for 1.20** _(might work in other version too tho)_<br>
 _Using [paper](https://papermc.io/downloads) is highly recommended_
@@ -22,8 +23,6 @@ _Using [paper](https://papermc.io/downloads) is highly recommended_
 
 You can download the latest versions at the following places:
 
-- https://hangar.papermc.io/Oliver/FancyPerks
-- https://modrinth.com/plugin/fancyperks
 - https://github.com/FancyMcPlugins/FancyPerks/releases
 - https://www.spigotmc.org/resources/fancy-perks.109267/
 - Build from source
@@ -43,27 +42,151 @@ To use a perk - ``fancyperks.perk.(perk name)``<br>
 ## Perks
 
 - Fast Digging
+Gives Haste II effect.
+
+- Instant Break
+Gives Haste 50 effect.
+
 - Night Vision
+Gives the night vision effect.
+
 - Water Breathing
+Gives the Water Breathing effect.
+
 - Speed
-- Keep Exp
-- Fly
-- No Hunger
-- Keep Inventory
-- No Fire Damage
-- No Fall Damage
-- Double exp
-- Strength
-- Double mob drops
-- God (no damage)
-- Vanish
-- Mobs ignore
+Gives Speed II effect.
+
+- Slowness
+Gives Slowness I effect.
+
 - Glowing
+Gives Glowing effect.
+
+- Strength
+Gives Strength II effect.
+
+- Jump Boost
+Gives Jump Boost II effect.
+
+- Health Boost
+Gives Health Boost I effect (2 extra hearts).
+
+- Regeneration
+Gives Regeneration effect.
+
+- Fire Resistance
+Gives Fire Resistance effect.
+
+- Resistance
+Gives Restance III effect.
+
+- Invisibility
+Gives Invisibility effect (not to be confused with vanish perk!).
+
+- Levitation
+Gives Levitation effect
+
+- Luck
+Gives Luck effect (only applies to fishing).
+
+- Slow Falling
+Gives Slow Falling effect.
+
+Bad Omen
+- Gives Bad Omen effect.
+
+- Hero of the Village
+Gives Hero of the Village effect.
+
+- Keep Exp
+No XP loss when dying.
+
+- Keep Inventory
+No item loss when dying.
+
+- Fly
+Enable flight.
+
+- No Hunger
+Saturation does not decrease and is always maximum.
+
+- No Fire Damage
+Take no damage from fire.
+
+- No Fall Damage
+Take no damage from falling.
+
+- No Explosion Damage
+Take no damage from explosions like TNT or Creepers.
+
+- No Poison Damage
+Take no damage when poisoned (this will not prevent to get poisoned).
+
+- No Projectile Damage
+Take no damage from projectiles like arrows.
+
+- No Frost Damage
+Take no damage when standing in powdered snow (this will not prevent to get frozen).
+
+- No Block Damage
+Take no damage from blocks like falling anvils or suffocation.
+
+- Half Damage
+Take just the half of the damage that you would normally.
+
+- God
+Take no damage at all.
+
+- Mobs ignore
+Mobs don't attack you anymore.
+
+- Double XP
+Get twice as much XP from killing mobs (not from mining blocks!).
+
+- Triple XP
+Get three times as much XP from killing mobs (dito). 
+Does not aggregate with Double XP; if both perks are activated, 3xXP is max.
+
+- Double Drops
+Get twice as much drops from killing mobs. 
+Be sure to blacklist mobs that can pick up items to prevent possible duping!
+
+- Vanish
+Hide from other players.
+
 - Telekinesis
+Pick up mined blocks directly.
+
 - Instant Smelt
+Directly smelts ores when mining them (copper -> copper ingot, gold -> gold ingot, iron -> iron ingot, ancient debris -> netherite scrap and cobble-> stone).
+Does NOT smelt nether gold as usually this would drop a gold nugget instead of raw gold.
+
 - Auto repair
+Player tools in inventory will not lose durability anymore (but will not be fixed on damage but keep their current durability!).
+
 - Auto planting
+Will re-plant crops directly when harvesting them.
+
 - Lava runner
+Walk on lava, will convert lava below into obsidian. 
+Attention, this perk could/will be buggy under some conditions:
+when the perk is turned on and off, the transformed blocks could remain, but not be able to destroy.
+Also this could cause issues with some skyblock, claim and/or plot plugins.
+I kept this from the original plugin to keep compatibility, but I'd rather recommand not to use it.
+
+- Drop More Blocks
+Drops some blocks that usually do not drop when mined: 
+budding amethyst, reinforced deepslate, dirt path, farmland and frogspawn.
+
+- Drop Spawners
+Will drop mob spawners and trial spawners as item when mined.
+Currently, the current mob in the spawner will be lost, so a mined and newly placed spawner will be empty.
+
+
+**Some thoughts about the many perks:**
+As server owner, you might not want to activate all of these perks for your players, but as there are e.g. different types of anti-damage perks, that gives you as owner the option to more have a more fine-grained control of what perks you allow and what not. And maybe you want to have a more fine-grained control when thinking of different worlds as you can individually decide in which world you want to allow this perk and where not.
+
+
 
 ## Build from source
 

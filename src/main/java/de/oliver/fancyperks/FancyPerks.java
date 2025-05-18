@@ -1,5 +1,14 @@
 package de.oliver.fancyperks;
 
+import java.util.List;
+
+import org.apache.maven.artifact.versioning.ComparableVersion;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import de.oliver.fancylib.FancyLib;
 import de.oliver.fancylib.LanguageConfig;
 import de.oliver.fancylib.Metrics;
@@ -13,21 +22,25 @@ import de.oliver.fancyperks.commands.FancyPerksCMD;
 import de.oliver.fancyperks.commands.PerksCMD;
 import de.oliver.fancyperks.gui.inventoryClick.BuyPerkInventoryItemClick;
 import de.oliver.fancyperks.gui.inventoryClick.TogglePerkInventoryItemClick;
-import de.oliver.fancyperks.listeners.*;
+import de.oliver.fancyperks.listeners.BlockBreakListener;
+import de.oliver.fancyperks.listeners.BlockDropItemListener;
+import de.oliver.fancyperks.listeners.EntityDamageListener;
+import de.oliver.fancyperks.listeners.EntityDeathListener;
+import de.oliver.fancyperks.listeners.EntityPotionEffectListener;
+import de.oliver.fancyperks.listeners.EntityTargetLivingEntityListener;
+import de.oliver.fancyperks.listeners.FoodLevelChangeListener;
+import de.oliver.fancyperks.listeners.LuckPermsListener;
+import de.oliver.fancyperks.listeners.PlayerChangedWorldListener;
+import de.oliver.fancyperks.listeners.PlayerDeathListener;
+import de.oliver.fancyperks.listeners.PlayerItemDamageListener;
+import de.oliver.fancyperks.listeners.PlayerJoinListener;
+import de.oliver.fancyperks.listeners.PlayerMoveListener;
 import de.oliver.fancyperks.perks.Perk;
 import de.oliver.fancyperks.perks.PerkRegistry;
 import de.oliver.fancyperks.perks.impl.LavaRunnerPerk;
 import net.luckperms.api.LuckPerms;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-import org.apache.maven.artifact.versioning.ComparableVersion;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.RegisteredServiceProvider;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.List;
 
 public class FancyPerks extends JavaPlugin {
 

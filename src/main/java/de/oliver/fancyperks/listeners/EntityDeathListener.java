@@ -27,10 +27,19 @@ public class EntityDeathListener implements Listener {
         PerkManager perkManager = FancyPerks.getInstance().getPerkManager();
         List<Perk> perks = perkManager.getEnabledPerks(p);
 
+        int expMultiplier = 1;
+
         boolean hasDoubleExp = perks.contains(PerkRegistry.DOUBLE_EXP);
         if (hasDoubleExp) {
-            event.setDroppedExp(event.getDroppedExp() * 2);
+            expMultiplier = 2;
         }
+
+        boolean hasTripleExp = perks.contains(PerkRegistry.TRIPLE_EXP);
+        if (hasTripleExp) {
+            expMultiplier = 3;
+        }
+
+        event.setDroppedExp(event.getDroppedExp() * expMultiplier);
 
         boolean hasDoubleDrops = perks.contains(PerkRegistry.DOUBLE_DROPS);
         if (hasDoubleDrops && !((DoubleDropsPerk) PerkRegistry.DOUBLE_DROPS).getBlacklist().contains(event.getEntityType())) {
@@ -45,7 +54,6 @@ public class EntityDeathListener implements Listener {
                     event.getEntity().getWorld().dropItemNaturally(event.getEntity().getLocation(), item);
                 }
             }
-
             event.getDrops().clear();
         }
     }

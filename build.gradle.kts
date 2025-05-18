@@ -7,7 +7,7 @@ plugins {
 
 group = "de.oliver"
 description = "Simple plugin that adds perks to your server"
-version = "1.1.1"
+version = "2.0"
 val mcVersion = "1.20.4"
 
 java {
@@ -95,4 +95,8 @@ tasks {
             expand(props)
         }
     }
+}
+
+tasks.build {
+    dependsOn(tasks.shadowJar)
 }

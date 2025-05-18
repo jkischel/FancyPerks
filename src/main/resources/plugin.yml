@@ -1,6 +1,6 @@
 name: FancyPerks
 description: $description
-author: OliverHD
+author: OliverHD/DatLicht
 version: $version
 folia-supported: true
 main: de.oliver.fancyperks.FancyPerks
