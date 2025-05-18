@@ -1,9 +1,5 @@
-![Latest Version](https://img.shields.io/github/v/release/FancyMcPlugins/FancyPerks?style=flat-square)
 [![Generic badge](https://img.shields.io/badge/folia-supported-green.svg)](https://shields.io/)
-[![Discord](https://img.shields.io/discord/899740810956910683?color=7289da&logo=Discord&label=Discord&style=flat-square)](https://discord.gg/ZUgYCEJUEx)
-![GitHub Downloads](https://img.shields.io/github/downloads/FancyMcPlugins/FancyPerks/total?logo=GitHub&style=flat-square)
-[![SpigotMC Downloads](https://badges.spiget.org/resources/downloads/spigotmc-orange-109267.svg)](https://www.spigotmc.org/resources/fancy-perks.109267/)
-[![Downloads](https://img.shields.io/modrinth/dt/fancyperks?color=00AF5C&label=modrinth&style=flat&logo=modrinth)](https://modrinth.com/plugin/fancyperks/versions)
+![GitHub Downloads](https://github.com/jkischel/FancyPerks/releases)
 
 # Fancy Perks
 
@@ -23,8 +19,7 @@ _Using [paper](https://papermc.io/downloads) is highly recommended_
 
 You can download the latest versions at the following places:
 
-- https://github.com/FancyMcPlugins/FancyPerks/releases
-- https://www.spigotmc.org/resources/fancy-perks.109267/
+- https://github.com/jkischel/FancyPerks/releases
 - Build from source
 
 ## Commands
@@ -183,8 +178,8 @@ Will drop mob spawners and trial spawners as item when mined.
 Currently, the current mob in the spawner will be lost, so a mined and newly placed spawner will be empty.
 
 
-**Some thoughts about the many perks:**
-As server owner, you might not want to activate all of these perks for your players, but as there are e.g. different types of anti-damage perks, that gives you as owner the option to more have a more fine-grained control of what perks you allow and what not. And maybe you want to have a more fine-grained control when thinking of different worlds as you can individually decide in which world you want to allow this perk and where not.
+**Some thoughts about the amount of perks:**
+As server owner, you might not want to activate all of these perks for your players at the same time, but as there are e.g. different types of anti-damage perks, that gives you as owner the option to more have a more fine-grained control of what you allow and what not. And maybe you want to have a more fine-grained control when thinking of different worlds as you can individually decide in which world you want to allow this perk and where not.
 
 
 
