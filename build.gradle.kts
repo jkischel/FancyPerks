@@ -7,7 +7,7 @@ plugins {
 
 group = "de.oliver"
 description = "Simple plugin that adds perks to your server"
-version = "2.0"
+version = "2.1"
 val mcVersion = "1.20.4"
 
 java {
@@ -40,38 +40,6 @@ tasks {
 
     shadowJar {
         archiveClassifier.set("")
-    }
-
-    publishing {
-        repositories {
-            maven {
-                name = "fancypluginsReleases"
-                url = uri("https://repo.fancyplugins.de/releases")
-                credentials(PasswordCredentials::class)
-                authentication {
-                    isAllowInsecureProtocol = true
-                    create<BasicAuthentication>("basic")
-                }
-            }
-
-            maven {
-                name = "fancypluginsSnapshots"
-                url = uri("https://repo.fancyplugins.de/snapshots")
-                credentials(PasswordCredentials::class)
-                authentication {
-                    isAllowInsecureProtocol = true
-                    create<BasicAuthentication>("basic")
-                }
-            }
-        }
-        publications {
-            create<MavenPublication>("maven") {
-                groupId = project.group.toString()
-                artifactId = project.name
-                version = project.version.toString()
-                from(project.components["java"])
-            }
-        }
     }
 
     compileJava {

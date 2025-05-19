@@ -57,6 +57,10 @@ To use a perk - ``fancyperks.perk.(perk name)``<br>
 
   Gives Slowness I effect.
 
+- Dolphins Grace
+
+  Gives Dolphins Grace effect.
+
 - Glowing
 
   Gives Glowing effect.
@@ -221,12 +225,13 @@ To use a perk - ``fancyperks.perk.(perk name)``<br>
 
   Will drop mob spawners and trial spawners as item when mined. Currently, the current mob in the spawner will be lost, so a mined and again placed spawner will be empty.
 
-**Some general thoughts about the amount of perks:**
+**Some general thoughts about the perks:**
 
 As server owner, you might not want to activate all of these perks for your players at the same time, but as there are e.g. different types of anti-damage perks, that gives you as owner the option to more have a more fine-grained control of what you allow and what not. And maybe you want to have a more fine-grained control when thinking of different worlds as you can individually decide in which world you want to allow this perk and where not.
 
+Also, you can configure the strength of the effects in the conf file if a perk looks too OP for you.
 
 ## Build from source
 
-1. Clone this repo and run `gradlew reobfJar`
+1. Clone this repo and run `gradlew build`
 2. The jar file will be in `build/libs/FancyPerks-<version>.jar`

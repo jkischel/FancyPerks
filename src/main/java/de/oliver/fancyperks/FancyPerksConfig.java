@@ -1,16 +1,17 @@
 package de.oliver.fancyperks;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.EntityType;
+
 import de.oliver.fancylib.ConfigHelper;
 import de.oliver.fancyperks.perks.Perk;
 import de.oliver.fancyperks.perks.PerkRegistry;
 import de.oliver.fancyperks.perks.impl.DoubleDropsPerk;
+import de.oliver.fancyperks.perks.impl.EffectPerk;
 import de.oliver.fancyperks.perks.impl.LavaRunnerPerk;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.EntityType;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class FancyPerksConfig {
 
@@ -63,6 +64,15 @@ public class FancyPerksConfig {
                     }
                 }
             }
+
+            if (perk instanceof EffectPerk effectPerk) {
+                String key = perk.getSystemName();
+                int defaultEffectStrength = EffectPerk.defaultEffectStrengths.getOrDefault(key, 0);
+
+                int strength = (int) ConfigHelper.getOrDefault(config, "perks." + perk.getSystemName() + ".effectStrength", defaultEffectStrength);
+                effectPerk.setEffectStrength(strength);
+            }
+
         }
 
         FancyPerks.getInstance().saveConfig();
