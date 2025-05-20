@@ -24,6 +24,7 @@ import de.oliver.fancyperks.gui.inventoryClick.BuyPerkInventoryItemClick;
 import de.oliver.fancyperks.gui.inventoryClick.TogglePerkInventoryItemClick;
 import de.oliver.fancyperks.listeners.BlockBreakListener;
 import de.oliver.fancyperks.listeners.BlockDropItemListener;
+import de.oliver.fancyperks.listeners.BlockPlaceListener;
 import de.oliver.fancyperks.listeners.EntityDamageListener;
 import de.oliver.fancyperks.listeners.EntityDeathListener;
 import de.oliver.fancyperks.listeners.EntityPotionEffectListener;
@@ -162,6 +163,7 @@ public class FancyPerks extends JavaPlugin {
         pluginManager.registerEvents(new BlockBreakListener(), instance);
         pluginManager.registerEvents(new PlayerMoveListener(), instance);
         pluginManager.registerEvents(new PlayerChangedWorldListener(), instance);
+        pluginManager.registerEvents(new BlockPlaceListener(), instance);
         if (usingLuckPerms && config.isActivatePerkOnPermissionSet()) {
             new LuckPermsListener();
         }
