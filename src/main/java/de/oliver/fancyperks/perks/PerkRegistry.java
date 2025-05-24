@@ -33,7 +33,7 @@ public class PerkRegistry {
     public static final Perk FIRE_RESISTANCE = new EffectPerk("fire_resistance", "Fire Resistance", "Makes you fire-proof", new ItemStack(Material.CAMPFIRE), PotionEffectType.FIRE_RESISTANCE);
     public static final Perk RESISTANCE = new EffectPerk("resistance", "Resistance", "Gives you the resistance effect", new ItemStack(Material.BEDROCK), PotionEffectType.DAMAGE_RESISTANCE);
     public static final Perk INVISIBILITY = new EffectPerk("invisibility", "Invisibility", "Makes you invisible", new ItemStack(Material.ENDER_EYE), PotionEffectType.INVISIBILITY);
-    public static final Perk LEVITATION = new EffectPerk("levitation", "Levitation", "Gives you the levitation effect", new ItemStack(Material.ELYTRA), PotionEffectType.LEVITATION);
+    public static final Perk LEVITATION = new EffectPerk("levitation", "Levitation", "Gives you the levitation effect", new ItemStack(Material.PHANTOM_MEMBRANE), PotionEffectType.LEVITATION);
     public static final Perk LUCK = new EffectPerk("luck", "Luck", "Increases your luck when fishing.", new ItemStack(Material.FISHING_ROD), PotionEffectType.LUCK);
     public static final Perk SLOW_FALLING = new EffectPerk("slow_falling", "Slow falling", "Decreases damage when falling.", new ItemStack(Material.FEATHER), PotionEffectType.SLOW_FALLING);
     public static final Perk BAD_OMEN = new EffectPerk("bad_omen", "Bad Omen", "Gives you the bad omen effect.", new ItemStack(Material.CROSSBOW), PotionEffectType.BAD_OMEN);

@@ -7,7 +7,7 @@ plugins {
 
 group = "de.oliver"
 description = "Simple plugin that adds perks to your server"
-version = "2.2"
+version = "2.3"
 val mcVersion = "1.20.4"
 
 java {

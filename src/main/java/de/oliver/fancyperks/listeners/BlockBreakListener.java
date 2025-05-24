@@ -65,7 +65,6 @@ public class BlockBreakListener implements Listener {
              || type == Material.FARMLAND
              || type == Material.FROGSPAWN) {
                 event.setDropItems(false);
-                block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(type));
 
                 ItemStack dropItem = new ItemStack(type);
                 boolean hasTelekinesis = perks.contains(PerkRegistry.TELEKINESIS);
