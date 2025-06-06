@@ -1,19 +1,20 @@
 package de.oliver.fancyperks.perks;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
+
 import de.oliver.fancylib.MessageHelper;
 import de.oliver.fancylib.gui.inventoryClick.InventoryItemClick;
 import de.oliver.fancyperks.FancyPerks;
 import de.oliver.fancyperks.PerkManager;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public abstract class Perk {
 
@@ -26,7 +27,7 @@ public abstract class Perk {
     protected String displayName;
     protected String description;
     protected boolean enabled;
-    protected List<String> disabledWorlds;
+    public List<String> disabledWorlds;
     protected boolean buyable;
     protected double price;
 
@@ -55,6 +56,11 @@ public abstract class Perk {
 
         perkManager.enablePerk(player, this);
 
+        return true;
+    }
+
+    public boolean forceGrant(Player player) {
+        perkManager.enablePerk(player, this);
         return true;
     }
 

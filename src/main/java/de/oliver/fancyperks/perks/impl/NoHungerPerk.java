@@ -12,8 +12,13 @@ public class NoHungerPerk extends Perk {
     @Override
     public boolean grant(Player player) {
         if(!super.grant(player)) return false;
+        return forceGrant(player);
+    }
 
+    @Override
+    public boolean forceGrant(Player player) {
         player.setFoodLevel(20);
         return true;
     }
+
 }

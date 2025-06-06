@@ -1,7 +1,7 @@
 package de.oliver.fancyperks.perks.impl;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -31,10 +31,15 @@ public class EffectPerk extends Perk {
     @Override
     public boolean grant(Player player) {
         if(!super.grant(player)) return false;
+        return forceGrant(player);
+    }
 
+    @Override
+    public boolean forceGrant(Player player) {
         player.addPotionEffect(new PotionEffect(effectType, -1, effectStrength, true, false, false));
         return true;
     }
+
 
     @Override
     public void revoke(Player player) {

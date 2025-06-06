@@ -13,12 +13,14 @@ public class AutoRepairPerk extends Perk {
     @Override
     public boolean grant(Player player) {
         if(!super.grant(player)) return false;
+        return forceGrant(player);
+    }
 
+    public boolean forceGrant(Player player) {
         for (ItemStack item : player.getInventory().getContents()) {
             if (item == null) {
                 continue;
             }
-
 
             item.editMeta(itemMeta -> {
                 if (!(itemMeta instanceof Damageable damageable)) {

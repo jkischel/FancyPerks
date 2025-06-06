@@ -1,6 +1,5 @@
 package de.oliver.fancyperks.commands;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -12,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import de.oliver.fancylib.MessageHelper;
 import de.oliver.fancyperks.FancyPerks;
 import de.oliver.fancyperks.gui.customInventories.PerksInventory;
 import de.oliver.fancyperks.perks.Perk;
@@ -58,86 +56,29 @@ public class PerksCMD implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        Player p = (Player) sender;
+    Player p = (Player) sender;
 
-        if (args.length == 0) {
-            PerksInventory perksInventory = new PerksInventory(p);
-            p.openInventory(perksInventory.getInventory());
-        } else if (args.length >= 2 && args[0].equalsIgnoreCase("activate")) {
-            String perkStr = args[1];
+    if (args.length == 0) {
+        PerksInventory perksInventory = new PerksInventory(p);
+        p.openInventory(perksInventory.getInventory());
+        return true;
+    }
 
-            if (perkStr.equals("*")) {
-                List<String> activatedPerks = new ArrayList<>();
-                for (Perk perk : PerkRegistry.ALL_PERKS) {
-                    if (perk.hasPermission(p) && !FancyPerks.getInstance().getPerkManager().hasPerkEnabled(p, perk)) {
-                        if(!perk.grant(p)){
-                            MessageHelper.warning(p, "The " + perk.getSystemName() + " perk is disabled in this world");
-                            continue;
-                        }
-                        activatedPerks.add(perk.getDisplayName());
-                    }
-                }
+    if (args.length >= 2) {
+        String subCommand = args[0].toLowerCase();
+        String perkName = args[1];
 
-                MessageHelper.success(p, "Activated all perks (" + String.join(", ", activatedPerks) + ")");
-                return true;
+        switch (subCommand) {
+            case "activate" -> {
+                return FancyPerks.getInstance().getPerkManager().handlePerkActivation(p, perkName);
             }
-
-            Perk perk = PerkRegistry.getPerkByName(perkStr);
-
-            if (perk == null) {
-                MessageHelper.error(p, "Could not find perk with name: '" + perkStr + "'");
-                return false;
+            case "deactivate" -> {
+                return FancyPerks.getInstance().getPerkManager().handlePerkDeactivation(p, perkName);
             }
-
-            if (FancyPerks.getInstance().getPerkManager().hasPerkEnabled(p, perk)) {
-                MessageHelper.warning(p, "You already activated this perk");
-                return true;
-            }
-
-            if (!perk.hasPermission(p)) {
-                MessageHelper.error(p, "You don't have permission to use this perk");
-                return false;
-            }
-
-            if(!perk.grant(p)){
-                MessageHelper.warning(p, "The " + perk.getSystemName() + " perk is disabled in this world");
-                return false;
-            }
-
-            MessageHelper.success(p, "Activated the " + perk.getDisplayName() + " perk");
-
-        } else if (args.length >= 2 && args[0].equalsIgnoreCase("deactivate")) {
-            String perkStr = args[1];
-
-            if (perkStr.equals("*")) {
-                List<String> deactivatedPerks = new ArrayList<>();
-                for (Perk perk : PerkRegistry.ALL_PERKS) {
-                    if (FancyPerks.getInstance().getPerkManager().hasPerkEnabled(p, perk)) {
-                        perk.revoke(p);
-                        deactivatedPerks.add(perk.getDisplayName());
-                    }
-                }
-
-                MessageHelper.success(p, "Deactivated all perks (" + String.join(", ", deactivatedPerks) + ")");
-                return true;
-            }
-
-            Perk perk = PerkRegistry.getPerkByName(perkStr);
-
-            if (perk == null) {
-                MessageHelper.error(p, "Could not find perk with name: '" + perkStr + "'");
-                return false;
-            }
-
-            if (!FancyPerks.getInstance().getPerkManager().hasPerkEnabled(p, perk)) {
-                MessageHelper.warning(p, "You already deactivated this perk");
-                return true;
-            }
-
-            perk.revoke(p);
-            MessageHelper.success(p, "Deactivated the " + perk.getDisplayName() + " perk");
         }
-
+    }
         return false;
     }
+
+
 }

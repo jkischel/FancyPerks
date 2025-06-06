@@ -1,9 +1,10 @@
 package de.oliver.fancyperks.perks.impl;
 
-import de.oliver.fancyperks.perks.Perk;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import de.oliver.fancyperks.perks.Perk;
 
 public class FlyPerk extends Perk {
     public FlyPerk(String systemName, String name, String description, ItemStack displayItem) {
@@ -12,6 +13,12 @@ public class FlyPerk extends Perk {
 
     @Override
     public boolean grant(Player player) {
+        if(!super.grant(player)) return false;
+        return forceGrant(player);
+    }
+
+    @Override
+    public boolean forceGrant(Player player) {
         if(!super.grant(player)) return false;
 
         player.setAllowFlight(true);
