@@ -26,6 +26,9 @@ You can download the latest versions at the following places:
 /perks deactivate (perk | *) - _Deactivates the perk_<br>
 /fancyperks version - _Shows the current version_<br>
 /fancyperks reload - _Reloads the config_<br>
+/fancyperks getperksof (player) - get a list of active and inactive perks of the specified player<br> 
+/fancyperks activateperk (player) (perk) - enable perk for the specified player<br> 
+/fancyperks deactivateperk (player) (perk) - disable perk for the specified player<br> 
 
 ## Permissions
 
