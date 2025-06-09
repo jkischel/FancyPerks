@@ -1,5 +1,14 @@
 package de.oliver.fancyperks.gui.inventoryClick;
 
+import java.util.Collections;
+import java.util.List;
+
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
+
 import de.oliver.fancylib.MessageHelper;
 import de.oliver.fancylib.gui.inventoryClick.InventoryItemClick;
 import de.oliver.fancyperks.FancyPerks;
@@ -9,14 +18,6 @@ import de.oliver.fancyperks.perks.PerkRegistry;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.permission.Permission;
-import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
-
-import java.util.Collections;
-import java.util.List;
 
 public class BuyPerkInventoryItemClick implements InventoryItemClick {
 

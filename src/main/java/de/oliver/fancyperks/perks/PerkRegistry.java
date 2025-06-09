@@ -18,20 +18,20 @@ import de.oliver.fancyperks.perks.impl.VanishPerk;
 
 public class PerkRegistry {
 
-    public static final Perk FAST_DIGGING = new EffectPerk("fast_digging", "Fast Digging", "Gives you the haste effect", new ItemStack(Material.DIAMOND_PICKAXE), PotionEffectType.FAST_DIGGING);
-    public static final Perk INSTABREAK = new EffectPerk("instabreak", "Instant Break", "Enables you to instantly break (nearly) every block.", new ItemStack(Material.NETHERITE_PICKAXE), PotionEffectType.FAST_DIGGING);
+    public static final Perk FAST_DIGGING = new EffectPerk("fast_digging", "Fast Digging", "Gives you the haste effect", new ItemStack(Material.DIAMOND_PICKAXE), PotionEffectType.HASTE);
+    public static final Perk INSTABREAK = new EffectPerk("instabreak", "Instant Break", "Enables you to instantly break (nearly) every block.", new ItemStack(Material.NETHERITE_PICKAXE), PotionEffectType.HASTE);
     public static final Perk NIGHT_VISION = new EffectPerk("night_vision", "Night Vision", "Gives you the night vision effect", new ItemStack(Material.SPYGLASS), PotionEffectType.NIGHT_VISION);
     public static final Perk WATER_BREATHING = new EffectPerk("water_breathing", "Water Breathing", "Gives you the water breathing effect", new ItemStack(Material.WATER_BUCKET), PotionEffectType.WATER_BREATHING);
     public static final Perk SPEED = new EffectPerk("speed", "Speed", "Gives you the speed effect", new ItemStack(Material.DIAMOND_BOOTS), PotionEffectType.SPEED);
     public static final Perk DOLPHINS_GRACE = new EffectPerk("dolphins_grace", "Dolphins Grace", "Lets you swim faster when diving", new ItemStack(Material.HEART_OF_THE_SEA), PotionEffectType.DOLPHINS_GRACE);
-    public static final Perk SLOWNESS = new EffectPerk("slowness", "Slowness", "Gives you the slowness effect", new ItemStack(Material.LEATHER_BOOTS), PotionEffectType.SLOW);
+    public static final Perk SLOWNESS = new EffectPerk("slowness", "Slowness", "Gives you the slowness effect", new ItemStack(Material.LEATHER_BOOTS), PotionEffectType.SLOWNESS);
     public static final Perk GLOWING = new EffectPerk("glowing", "Glowing", "Makes you glow", new ItemStack(Material.BEACON), PotionEffectType.GLOWING);
-    public static final Perk STRENGTH = new EffectPerk("strength", "Strength", "Gives you the strength effect", new ItemStack(Material.DIAMOND_SWORD), PotionEffectType.INCREASE_DAMAGE);
-    public static final Perk JUMP_BOOST = new EffectPerk("jumpboost", "Jump Boost", "Gives you the jump boost effect", new ItemStack(Material.RABBIT_FOOT), PotionEffectType.JUMP);
+    public static final Perk STRENGTH = new EffectPerk("strength", "Strength", "Gives you the strength effect", new ItemStack(Material.DIAMOND_SWORD), PotionEffectType.STRENGTH);
+    public static final Perk JUMP_BOOST = new EffectPerk("jumpboost", "Jump Boost", "Gives you the jump boost effect", new ItemStack(Material.RABBIT_FOOT), PotionEffectType.JUMP_BOOST);
     public static final Perk HEALTH_BOOST = new EffectPerk("health_boost", "Health Boost", "Gives you extra hearts", new ItemStack(Material.APPLE), PotionEffectType.HEALTH_BOOST);
     public static final Perk REGENERATION = new EffectPerk("regeneration", "Regeneration", "Gives you the regeneration effect", new ItemStack(Material.HONEY_BOTTLE), PotionEffectType.REGENERATION);
     public static final Perk FIRE_RESISTANCE = new EffectPerk("fire_resistance", "Fire Resistance", "Makes you fire-proof", new ItemStack(Material.CAMPFIRE), PotionEffectType.FIRE_RESISTANCE);
-    public static final Perk RESISTANCE = new EffectPerk("resistance", "Resistance", "Gives you the resistance effect", new ItemStack(Material.BEDROCK), PotionEffectType.DAMAGE_RESISTANCE);
+    public static final Perk RESISTANCE = new EffectPerk("resistance", "Resistance", "Gives you the resistance effect", new ItemStack(Material.BEDROCK), PotionEffectType.RESISTANCE);
     public static final Perk INVISIBILITY = new EffectPerk("invisibility", "Invisibility", "Makes you invisible", new ItemStack(Material.ENDER_EYE), PotionEffectType.INVISIBILITY);
     public static final Perk LEVITATION = new EffectPerk("levitation", "Levitation", "Gives you the levitation effect", new ItemStack(Material.PHANTOM_MEMBRANE), PotionEffectType.LEVITATION);
     public static final Perk LUCK = new EffectPerk("luck", "Luck", "Increases your luck when fishing.", new ItemStack(Material.FISHING_ROD), PotionEffectType.LUCK);

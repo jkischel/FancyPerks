@@ -1,5 +1,13 @@
 package de.oliver.fancyperks.gui.customInventories;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
+
 import de.oliver.fancylib.LanguageConfig;
 import de.oliver.fancylib.MessageHelper;
 import de.oliver.fancylib.gui.customInventories.CustomPlayerInventory;
@@ -11,18 +19,12 @@ import de.oliver.fancyperks.perks.PerkRegistry;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class PerksInventory extends CustomPlayerInventory implements PageInventory {
 
     private final static LanguageConfig lang = FancyPerks.getInstance().getLanguageConfig();
 
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public PerksInventory(Player player) {
         super(player, 6, MiniMessage.miniMessage().deserialize("Perks"));
 

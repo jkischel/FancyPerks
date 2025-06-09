@@ -26,13 +26,13 @@ public class FancyPerksCMD implements CommandExecutor, TabCompleter {
     @Override
 public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
     if (args.length == 1) {
-        return Stream.of("version", "reload", "enableperk", "disableperk", "getperksof")
+        return Stream.of("version", "reload", "enableperk", "disableperk", "getperksof", "grantperk", "revokeperk", "massgrantperk", "massrevokeperk")
                 .filter(input -> input.startsWith(args[0].toLowerCase()))
                 .toList();
     }
 
     // player name
-    if (args.length == 2 && List.of("enableperk", "disableperk", "getperksof").contains(args[0].toLowerCase())) {
+    if (args.length == 2 && List.of("enableperk", "disableperk", "getperksof", "grantperk", "revokeperk").contains(args[0].toLowerCase())) {
         return Arrays.stream(Bukkit.getOfflinePlayers())
             .map(OfflinePlayer::getName)
             .filter(name -> name != null)
@@ -40,11 +40,27 @@ public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotN
             .collect(Collectors.toList());
     }
 
+    // perk name for mass actions
+    if (args.length == 2 && List.of("massgrantperk", "massrevokeperk").contains(args[0].toLowerCase()))
+    {
+        return Stream.concat(
+                Stream.of("*"),
+                PerkRegistry.ALL_PERKS.stream()
+                    .map(Perk::getSystemName)
+            )
+            .filter(name -> name.toLowerCase().startsWith(args[1].toLowerCase()))
+            .toList();
+    }
+
     // perk name
-    if (args.length == 3 && List.of("enableperk", "disableperk").contains(args[0].toLowerCase())) {
-        return PerkRegistry.ALL_PERKS.stream()
-            .map(Perk::getSystemName)
-            .filter(name -> name.toLowerCase().startsWith(args[2].toLowerCase()))
+    if (args.length == 3 && List.of("enableperk", "disableperk", "grantperk", "revokeperk").contains(args[0].toLowerCase()))
+    {
+        return Stream.concat(
+                Stream.of("*"),
+                PerkRegistry.ALL_PERKS.stream()
+                    .map(Perk::getSystemName)
+            )
+            .filter(name -> name.toLowerCase().startsWith(args[1].toLowerCase()))
             .toList();
     }
 
@@ -87,8 +103,27 @@ public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotN
         } else if (args.length == 2 && args[0].equalsIgnoreCase("getperksof")) {
             String playerName = args[1];
             FancyPerks.getInstance().getPerkManager().getPlayerPerks(sender, playerName);
-        }
 
+        } else if (args.length == 3 && args[0].equalsIgnoreCase("grantperk")) {
+            String playerName = args[1];
+            String perkName = args[2];
+            FancyPerks.getInstance().getPerkManager().grantPerkTo(playerName, perkName, true, sender, false);
+
+        } else if (args.length == 3 && args[0].equalsIgnoreCase("revokeperk")) {
+            String playerName = args[1];
+            String perkName = args[2];
+            FancyPerks.getInstance().getPerkManager().revokePerkFrom(playerName, perkName, true, sender, false);
+
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("massgrantperk")) {
+            String perkName = args[1];
+            FancyPerks.getInstance().getPerkManager().massGrantPerkAsync(perkName, sender);
+
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("massrevokeperk")) {
+            String perkName = args[1];
+            FancyPerks.getInstance().getPerkManager().massRevokePerkAsync(perkName, sender);
+
+        }
+        
         return false;
     }
 

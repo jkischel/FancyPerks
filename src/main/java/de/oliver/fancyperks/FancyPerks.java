@@ -1,6 +1,7 @@
 package de.oliver.fancyperks;
 
 import java.util.List;
+import java.util.logging.Level;
 
 import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.bukkit.Bukkit;
@@ -86,7 +87,7 @@ public class FancyPerks extends JavaPlugin {
             } else if (newestVersion.compareTo(currentVersion) > 0) {
                 getLogger().warning("-------------------------------------------------------");
                 getLogger().warning("You are not using the latest version the FancyPerks plugin.");
-                getLogger().warning("Please update to the newest version (" + newestVersion + ").");
+                getLogger().log(Level.WARNING, "Please update to the newest version ({0}).", newestVersion);
                 getLogger().warning(versionFetcher.getDownloadUrl());
                 getLogger().warning("-------------------------------------------------------");
             }
@@ -128,12 +129,14 @@ public class FancyPerks extends JavaPlugin {
             RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
             if (provider != null) {
                 luckPerms = provider.getProvider();
+                LuckPermsHelper.luckPerms = luckPerms;
             } else {
                 usingLuckPerms = false;
             }
         }
 
 
+        @SuppressWarnings("unused")
         Metrics metrics = new Metrics(instance, 18195);
 
         config.reload();

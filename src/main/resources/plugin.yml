@@ -1,10 +1,10 @@
 name: FancyPerks
 description: $description
-author: OliverHD/DatLicht
+author: OliverHD, DatLicht, FemBoysAreCut3
 version: $version
 folia-supported: true
 main: de.oliver.fancyperks.FancyPerks
-api-version: 1.19
+api-version: 1.21
 loadbefore:
   - Vault
   - Essentials

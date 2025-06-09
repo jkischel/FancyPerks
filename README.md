@@ -3,238 +3,296 @@
 **-------------------------------------------**
 
 This is an extended version of FancyPerks by Oliver Schlueter.
-As the original version of this plugin is not developed anymore and even archived in Github, I hope this version can help out :)
+As the original version of this plugin is not developed anymore by Oliver and the repo is even archived in Github, I hope this version can help out :)
 
 **-------------------------------------------**
 
 FancyPerks is a simple plugin that adds some fancy perks to your server.
 
-**Only supported for 1.20** _(might work in other version too tho)_<br>
-_Using [paper](https://papermc.io/downloads) is highly recommended_
+## Prerequisites
+- Using a [paper](https://papermc.io/downloads) based server is highly recommended.<br>
+
+- **Only supported for Minecraft version 1.21+**<br>
+
+- LuckPerms (otherwise big parts of the perks won't work as intended or not at all)<br>
+
+- Vault (otherwise, players cannot purchase perks)
 
 ## Get the plugin
 
 You can download the latest versions at the following places:
 
 - https://github.com/jkischel/FancyPerks/releases
-- Build from source
+
+- Build from source (see section at the end of this readme)
 
 ## Commands
 
+### Player commands:
 /perks - Opens the perks gui<br>
 /perks activate (perk | *) - _Activates the perk_<br>
 /perks deactivate (perk | *) - _Deactivates the perk_<br>
+
+### Admin commands:
 /fancyperks version - _Shows the current version_<br>
 /fancyperks reload - _Reloads the config_<br>
 /fancyperks getperksof (player) - get a list of active and inactive perks of the specified player<br> 
 /fancyperks activateperk (player) (perk) - enable perk for the specified player<br> 
 /fancyperks deactivateperk (player) (perk) - disable perk for the specified player<br> 
+/fancyperks grantperk (player) (perk) - grant player a perk for free so he does not have to buy it<br>
+/fancyperks revokeperk (player) (perk) - revoke player's perk with no refund<br>
+/fancyperks massgrantperk (perk) - grants a perk to all players
+/fancyperks massrevokeperk (perk) - revokes a perk from all players
+
+It's strongly recommended to perform bulk actions like 
+
+``/fancyperks massgrantperk *``
+
+not in the times when the server is under heavy traffic (e.g. prime time with hundreds of live players). 
+Truly, the mass tasks are desgned to run asynchronous to reduce lags, but it's not guaranteed that 
+everything runs smoothly, especially on big servers with hundreds of players (keep in mind that also
+offline players are counting into that number!).
+
+#### General thoughts about admin commands:
+In short words: This plugin has no brain, use your own :) 
+
+That means, the plugin assumes that as an admin you know what you are doing. So **the plugin does not **
+**check**, for example, **whether a perk is allowed in the player's world or whether the player has **
+**bought that perk at all** if you're using the admin commands (that's _your_ job as admin!). 
+So if you fire an admin command, the plugin does exactly what you tell it to do (if it's possible).
+
+It is also important to keep in mind that if you activate, deactivate, enable or disable a perk for an 
+online player, the player affected will receive a message about this and who did it. 
+
+Also it is possible to disable a fly/levitation perk of players that are literally flying at that moment,
+keep in mind that such players should land first or they might hit the ground very hard.
+
+Remember to play fair, also as admin. :)
+
+#### About offline players
+Yes, you can change perk statuses for players that aren't online at the moment as long as they were 
+online some time ago. But that has a little catch: if a player has activated an effect perk like strength,
+and you deactivate that perk, the effect will still remain active if the player comes back. This is
+due to the technical nature of offline players: you cannot add or clear any effect until that player 
+is online. This might lead to ... unexpected states. 
 
 ## Permissions
 
 To use a perk - ``fancyperks.perk.(perk name)``<br>
 
+If perks are buyable, the permissions are bought by the player and then set to his player account. 
+If a player already has the perk permission above, he does not need to buy the perk.
+
 ## Perks
 
-- Fast Digging
+- **Fast Digging**
 
   Gives Haste II effect.
 
-- Instant Break
+- **Instant Break**
 
   Gives Haste 50 effect.
 
-- Night Vision
+- **Night Vision**
 
   Gives the night vision effect.
 
-- Water Breathing
+- **Water Breathing**
 
   Gives the Water Breathing effect.
 
-- Speed
+- **Speed**
 
   Gives Speed II effect.
 
-- Slowness
+- **Slowness**
 
   Gives Slowness I effect.
 
-- Dolphins Grace
+- **Dolphins Grace**
 
   Gives Dolphins Grace effect.
 
-- Glowing
+- **Glowing**
 
   Gives Glowing effect.
 
-- Strength
+- **Strength**
 
   Gives Strength II effect.
 
-- Jump Boost
+- **Jump Boost**
 
   Gives Jump Boost II effect.
 
-- Health Boost
+- **Health Boost**
 
   Gives Health Boost I effect (2 extra hearts).
 
-- Regeneration
+- **Regeneration**
 
   Gives Regeneration effect.
 
-- Fire Resistance
+- **Fire Resistance**
 
   Gives Fire Resistance effect.
 
-- Resistance
+- **Resistance**
 
   Gives Restance III effect.
 
-- Invisibility
+- **Invisibility**
 
   Gives Invisibility effect (not to be confused with vanish perk!).
 
-- Levitation
+- **Levitation**
 
   Gives Levitation effect
 
-- Luck
+- **Luck**
 
   Gives Luck effect (only applies to fishing).
 
-- Slow Falling
+- **Slow Falling**
 
   Gives Slow Falling effect.
 
-- Bad Omen
+- **Bad Omen**
 
   Gives Bad Omen effect.
 
-- Hero of the Village
+- **Hero of the Village**
 
   Gives Hero of the Village effect.
 
-- Keep Exp
+- **Keep Exp**
 
   No XP loss when dying.
 
-- Keep Inventory
+- **Keep Inventory**
 
   No item loss when dying.
 
-- Fly
+- **Fly**
 
   Enable flight.
 
-- No Hunger
+- **No Hunger**
 
   Saturation does not decrease and is always maximum.
 
-- No Fire Damage
+- **No Fire Damage**
 
   Take no damage from fire.
 
-- No Fall Damage
+- **No Fall Damage**
 
   Take no damage from falling.
 
-- No Explosion Damage
+- **No Explosion Damage**
 
   Take no damage from explosions like TNT or Creepers.
 
-- No Poison Damage
+- **No Poison Damage**
 
   Take no damage when poisoned (this will not prevent to get poisoned).
 
-- No Projectile Damage
+- **No Projectile Damage**
 
   Take no damage from projectiles like arrows.
 
-- No Frost Damage
+- **No Frost Damage**
 
   Take no damage when standing in powdered snow (this will not prevent to get frozen).
 
-- No Block Damage
+- **No Block Damage**
 
   Take no damage from blocks like falling anvils or suffocation.
 
-- Half Damage
+- **Half Damage**
 
   Take just the half of the damage that you would normally.
 
-- God
+- **God**
 
   Take no damage at all.
 
-- Mobs ignore
+- **Mobs ignore**
 
   Mobs don't attack you anymore.
 
-- Double XP
+- **Double XP**
 
   Get twice as much XP from killing mobs (not from mining blocks!).
 
-- Triple XP
+- **Triple XP**
 
   Get three times as much XP from killing mobs (dito).
   
   Does not aggregate with Double XP; if both perks are activated, 3xXP is max.
 
-- Double Drops
+- **Double Drops**
 
   Get twice as much drops from killing mobs. 
 
   Be sure to blacklist mobs that can pick up items to prevent possible duping!
 
-- Vanish
+- **Vanish**
 
   Hide from other players.
 
-- Telekinesis
+- **Telekinesis**
 
   Pick up mined blocks directly.
 
-- Instant Smelt
+- **Instant Smelt**
 
   Directly smelts ores when mining them:
   copper -> copper ingot, gold -> gold ingot, iron -> iron ingot, ancient debris -> netherite scrap and cobble-> stone
 
   Does NOT smelt nether gold as usually this would drop a gold nugget instead of raw gold.
 
-- Auto repair
+- **Auto repair**
 
   Player tools in inventory will not lose durability anymore (but will not be fixed on damage but keep their current durability!).
 
-- Auto planting
+- **Auto planting**
 
   Will re-plant crops directly when harvesting them.
 
-- Lava runner
+- **Lava runner**
 
   Walk on lava, will convert lava below into obsidian.
    
-  **Attention, this perk could/will be buggy under some conditions:**
-  when the perk is turned on and off, the transformed blocks could remain, but not be able to destroy. Also this perk could cause issues with some skyblock/oneblock, claim and/or plot plugins. I kept this perk from the original plugin to keep compatibility, but I'd rather recommand not to use it.
+  *Attention, this perk could/will be buggy under some conditions:*
+  When the perk is turned on and off, the transformed blocks could remain, but are unintendedly indestructible. 
+  Also this perk could cause issues with some skyblock/oneblock, claim and/or plot plugins. 
+  I kept this perk from the original plugin to keep compatibility, but I'd strongly recommand not to use it.
 
-- Drop More Blocks
+- **Drop More Blocks**
 
   Drops some blocks that usually do not drop when mined:
 
   budding amethyst, reinforced deepslate, dirt path, farmland and frogspawn.
 
-- Drop Spawners
+- **Drop Spawners**
 
   Will drop mob spawners and trial spawners as item when mined. Currently, the current mob in the spawner will be lost, so a mined and again placed spawner will be empty.
 
 **Some general thoughts about the perks:**
 
-As server owner, you might not want to activate all of these perks for your players at the same time, but as there are e.g. different types of anti-damage perks, that gives you as owner the option to more have a more fine-grained control of what you allow and what not. And maybe you want to have a more fine-grained control when thinking of different worlds as you can individually decide in which world you want to allow this perk and where not.
+As server owner, you might not want to activate all of these perks for your players at the same time, 
+but as there are e.g. different types of anti-damage perks, that gives you as owner the option rather to 
+have a more fine-grained control of what you allow and what not. And maybe you want to have a 
+more fine-grained control when thinking of different worlds as you can individually decide in which 
+world you want to allow this perk and where not.
 
 Also, you can configure the strength of the effects in the conf file if a perk looks too OP for you.
 
 ## Build from source
 
-1. Clone this repo and run `gradlew build`
-2. The jar file will be in `build/libs/FancyPerks-<version>.jar`
+Prerequisite:
+You will need Java 17 and Maven.
+
+1. Clone this repo and run `build.cmd`
+2. The jar file will be in `build/target/FancyPerks-<version>.jar`
