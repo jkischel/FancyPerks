@@ -143,7 +143,7 @@ Clear text perk name used in GUI and status messages.
   description: longer description goes here
 ```
 Formattable description text like described [here](https://docs.advntr.dev/minimessage/format). 
-Line break is <newline>, but not <br>.
+Line break is ``<newline>``, but not ``<br>``.
 
 ```
   enabled: true
