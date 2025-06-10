@@ -1,11 +1,12 @@
 package de.oliver.fancyperks;
 
 import java.util.List;
-import java.util.logging.Level;
 
-import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -78,20 +79,6 @@ public class FancyPerks extends JavaPlugin {
     @Override
     public void onEnable() {
         FancyLib.setPlugin(this);
-
-        new Thread(() -> {
-            ComparableVersion newestVersion = versionFetcher.fetchNewestVersion();
-            ComparableVersion currentVersion = new ComparableVersion(getDescription().getVersion());
-            if (newestVersion == null) {
-                getLogger().warning("Could not fetch latest plugin version");
-            } else if (newestVersion.compareTo(currentVersion) > 0) {
-                getLogger().warning("-------------------------------------------------------");
-                getLogger().warning("You are not using the latest version the FancyPerks plugin.");
-                getLogger().log(Level.WARNING, "Please update to the newest version ({0}).", newestVersion);
-                getLogger().warning(versionFetcher.getDownloadUrl());
-                getLogger().warning("-------------------------------------------------------");
-            }
-        }).start();
 
         PluginManager pluginManager = Bukkit.getPluginManager();
 
@@ -229,4 +216,43 @@ public class FancyPerks extends JavaPlugin {
     public LuckPerms getLuckPerms() {
         return luckPerms;
     }
+
+    public String itemOrDefault(String itemName, String fallbackItemName) {
+        // we support player heads with custom textures, so PLAYER_HEAD:texture=.... is normally no valid item, but we handle it later
+        if (itemName.toUpperCase().startsWith("PLAYER_HEAD")) {
+            return itemName;
+        }
+
+        try {
+            @SuppressWarnings("unused")
+            Material material = Material.valueOf(itemName.toUpperCase());
+            return itemName;
+        } catch (IllegalArgumentException | NullPointerException e) {
+            return fallbackItemName;
+        }
+    }
+
+    public ItemStack createCustomSkull(String itemString) {
+        // if this is not a player_head - return default item
+        if (!itemString.startsWith("PLAYER_HEAD:")) {
+            return new ItemStack(Material.BARRIER);
+        }
+
+        String data = itemString.substring("PLAYER_HEAD:".length());
+        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta meta = (SkullMeta) skull.getItemMeta();
+
+        if (data.startsWith("owner=")) {
+            String playerName = data.substring("owner=".length());
+            meta.setOwnerProfile(Bukkit.createPlayerProfile(playerName));
+        }
+
+        skull.setItemMeta(meta);
+        return skull;
+    }
+
+    private String base64ToHash(String base64) {
+        return base64.substring(0, Math.min(base64.length(), 64));
+    }
+
 }

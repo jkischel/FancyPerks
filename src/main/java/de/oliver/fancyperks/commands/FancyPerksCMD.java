@@ -48,7 +48,6 @@ public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotN
                 PerkRegistry.ALL_PERKS.stream()
                     .map(Perk::getSystemName)
             )
-            .filter(name -> name.toLowerCase().startsWith(args[1].toLowerCase()))
             .toList();
     }
 
@@ -60,7 +59,6 @@ public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotN
                 PerkRegistry.ALL_PERKS.stream()
                     .map(Perk::getSystemName)
             )
-            .filter(name -> name.toLowerCase().startsWith(args[1].toLowerCase()))
             .toList();
     }
 
@@ -71,19 +69,8 @@ public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotN
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if (args.length >= 1 && args[0].equalsIgnoreCase("version")) {
-            MessageHelper.info(sender, "<i>Checking version, please wait...</i>");
-            new Thread(() -> {
-                ComparableVersion newestVersion = FancyPerks.getInstance().getVersionFetcher().fetchNewestVersion();
-                ComparableVersion currentVersion = new ComparableVersion(FancyPerks.getInstance().getDescription().getVersion());
-                if (newestVersion == null) {
-                    MessageHelper.error(sender, "Could not find latest version");
-                } else if (newestVersion.compareTo(currentVersion) > 0) {
-                    MessageHelper.warning(sender, "You are using an outdated version of the FancyPerks Plugin");
-                    MessageHelper.warning(sender, "[!] Please download the newest version (" + newestVersion + "): <click:open_url:'" + FancyPerks.getInstance().getVersionFetcher().getDownloadUrl() + "'><u>click here</u></click>");
-                } else {
-                    MessageHelper.success(sender, "You are using the latest version of the FancyPerks Plugin (" + currentVersion + ")");
-                }
-            }).start();
+            ComparableVersion currentVersion = new ComparableVersion(FancyPerks.getInstance().getDescription().getVersion());
+            MessageHelper.success(sender, "You are using FancyPerks version (" + currentVersion + ")");
 
         } else if (args.length >= 1 && args[0].equalsIgnoreCase("reload")) {
             FancyPerks.getInstance().getFanyPerksConfig().reload();

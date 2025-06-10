@@ -1,18 +1,20 @@
 package de.oliver.fancyperks.perks;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import de.oliver.fancylib.MessageHelper;
 import de.oliver.fancylib.gui.inventoryClick.InventoryItemClick;
 import de.oliver.fancyperks.FancyPerks;
 import de.oliver.fancyperks.PerkManager;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
@@ -23,7 +25,7 @@ public abstract class Perk {
     protected static final PerkManager perkManager = FancyPerks.getInstance().getPerkManager();
 
     protected final String systemName;
-    protected final ItemStack displayItem;
+    protected ItemStack displayItem;
     protected String displayName;
     protected String description;
     protected boolean enabled;
@@ -70,18 +72,42 @@ public abstract class Perk {
 
     public ItemStack getDisplayItem() {
         ItemStack item = displayItem.clone();
+        final String primaryColor = MessageHelper.getPrimaryColor();
+        String[] lines = description.split("<newline>");
+        List<Component> loreLines = new ArrayList<>();
+        for (String line : lines) {
+            Component lineComponent = MessageHelper.removeDecoration(
+                MiniMessage.miniMessage().deserialize("<gray>" + line + "</gray>"),
+                TextDecoration.ITALIC
+            );
+            loreLines.add(lineComponent);
+        }
 
-        item.editMeta(itemMeta -> {
-            final String primaryColor = MessageHelper.getPrimaryColor();
-            itemMeta.displayName(MessageHelper.removeDecoration(MiniMessage.miniMessage().deserialize("<color:" + primaryColor + ">" + displayName + "</color>"), TextDecoration.ITALIC));
-            itemMeta.lore(Arrays.asList(
-                    MessageHelper.removeDecoration(MiniMessage.miniMessage().deserialize("<gray>" + description + "</gray>"), TextDecoration.ITALIC)
-            ));
-
-            itemMeta.getPersistentDataContainer().set(InventoryItemClick.ON_CLICK_KEY, PersistentDataType.STRING, "cancelClick");
-        });
-
+        if (item.getType().name().startsWith("PLAYER_HEAD")) {
+            item.editMeta(SkullMeta.class, skullMeta -> {
+                skullMeta.displayName(MessageHelper.removeDecoration(MiniMessage.miniMessage().deserialize("<color:" + primaryColor + ">" + displayName + "</color>"), TextDecoration.ITALIC));
+                skullMeta.lore(loreLines);
+                skullMeta.getPersistentDataContainer().set(InventoryItemClick.ON_CLICK_KEY, PersistentDataType.STRING, "cancelClick");
+            });
+        } else {
+            item.editMeta(itemMeta -> {
+                
+                itemMeta.displayName(MessageHelper.removeDecoration(MiniMessage.miniMessage().deserialize("<color:" + primaryColor + ">" + displayName + "</color>"), TextDecoration.ITALIC));
+                itemMeta.lore(loreLines);
+                itemMeta.getPersistentDataContainer().set(InventoryItemClick.ON_CLICK_KEY, PersistentDataType.STRING, "cancelClick");
+            });            
+        }
+        
         return item;
+    }
+
+    public void setDisplayItem(String itemName) {
+        if (itemName.startsWith("PLAYER_HEAD")) {
+            displayItem = FancyPerks.getInstance().createCustomSkull(itemName);
+        } else {
+            Material displayMaterial = Material.valueOf(itemName.toUpperCase());
+            displayItem = new ItemStack(displayMaterial);
+        }
     }
 
     public String getSystemName() {
