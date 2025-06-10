@@ -83,6 +83,76 @@ To use a perk - ``fancyperks.perk.(perk name)``<br>
 If perks are buyable, the permissions are bought by the player and then set to his player account. 
 If a player already has the perk permission above, he does not need to buy the perk.
 
+## Configuration
+
+In the config.yml there are several well-structured parameters you can configure to your needs:
+
+### General parameters
+``mute_version_notification: false``
+deprecated, will be removed soon.
+
+``activate_perk_on_permission_set: false``
+If a player gets the permission, shall the corresponding perk also be activated automatically?
+
+### GUI configuration
+``perk_disabled_item: IRON_BLOCK``
+``perk_enabled_item: EMERALD_BLOCK``
+``perk_not_owned_item: GOLD_BLOCK``
+The items that are displayed below the perk in the /perks GUI, depending on the status.
+  
+``next_page_item: PLAYER_HEAD:owner=MHF_arrowright``
+``previous_page_item: PLAYER_HEAD:owner=MHF_arrowleft``
+The pagination items.
+
+In general, all the items also can be player heads, in the syntax example above.
+Keep in mind that only real player heads are supported, no just-texture heads.
+
+### Perk configuration
+A perk configuration entry will usually have this entries:
+``perk_name:``
+internal perk name, you usually see it in commands.
+
+  ``name: Display name here``  
+Perk name used in GUI and status messages.
+
+  ``description: longer description goes here``
+Formattable description text like described [here](https://docs.advntr.dev/minimessage/format). 
+Line break is <newline>, not <br>
+
+  ``enabled: true``
+Will this perk appear in the /perks menu? Can it be enabled by players?
+Yes, you as admin CAN also activate disabled perks.
+
+  ``disabled_worlds: []``
+The plugin will prevent players from activating this perks in this worlds.
+Admins can activate perks anywhere thru commands (but not GUI).
+Example:
+  ``disabled_worlds:``
+  ``- world_nether``
+  ``- world_the_end``
+
+  ``buyable: true``
+If the user doesn't have the permission for this perk, can he purchase it?
+  
+  ``price: 150000.0``
+If yes, for how much?
+ 
+  ``effectStrength: 0``
+In effect perks, you can define the strength, beginning from 0 (which equals Level I).
+
+  ``display_item: WATER_BUCKET``
+Which item shall be used for displaying it in the GUI?
+
+  ``blacklist: []``
+The double drop perk does support blacklisting mobs that does not generate double drops (as a dupe protection).
+Example:
+  ``blacklist:``
+  ``- PLAYER``
+  ``- ZOMBIE``
+  ``- FOX``
+  ``- ALLAY``
+
+
 ## Perks
 
 - **Fast Digging**
