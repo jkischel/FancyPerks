@@ -73,7 +73,8 @@ public abstract class Perk {
     public ItemStack getDisplayItem() {
         ItemStack item = displayItem.clone();
         final String primaryColor = MessageHelper.getPrimaryColor();
-        String[] lines = description.split("<newline>");
+        String description2 = description.replace("<br>", "<newline>");
+        String[] lines = description2.split("<newline>");
         List<Component> loreLines = new ArrayList<>();
         for (String line : lines) {
             Component lineComponent = MessageHelper.removeDecoration(
