@@ -95,63 +95,110 @@ deprecated, will be removed soon.
 If a player gets the permission, shall the corresponding perk also be activated automatically?
 
 ### GUI configuration
-``perk_disabled_item: IRON_BLOCK``
-``perk_enabled_item: EMERALD_BLOCK``
-``perk_not_owned_item: GOLD_BLOCK``
+```
+perk_disabled_item: RED_DYE
+perk_enabled_item: GREEN_DYE
+perk_not_owned_item: YELLOW_DYE
+```
 The items that are displayed below the perk in the /perks GUI, depending on the status.
-  
-``next_page_item: PLAYER_HEAD:owner=MHF_arrowright``
-``previous_page_item: PLAYER_HEAD:owner=MHF_arrowleft``
+
+```
+next_page_item: PLAYER_HEAD:owner=MHF_arrowright
+previous_page_item: PLAYER_HEAD:owner=MHF_arrowleft
+```
 The pagination items.
 
 In general, all the items also can be player heads, in the syntax example above.
 Keep in mind that only real player heads are supported, no just-texture heads.
 
 ### Perk configuration
-A perk configuration entry will usually have this entries:
-``perk_name:``
-internal perk name, you usually see it in commands.
+A perk configuration entry will usually have entries like this example:
+```
+  hero_of_the_village:
+    name: Hero of the village
+    description: This perk will give a discount at villager trades. <newline>
+      <red>(overworld only!)</red>
+    enabled: true
+    disabled_worlds:
+    - world_nether
+    - world_the_end
+    buyable: true
+    price: 100000.0
+    effectStrength: 2
+    display_item: EMERALD
+```
+**The parameters explained in detail**
 
-  ``name: Display name here``  
-Perk name used in GUI and status messages.
+```
+perk_name:
+```
+This is an internal perk name, you usually see it in commands like /perks activate perk_name
 
-  ``description: longer description goes here``
+```
+  name: Display name here
+```
+Clear text perk name used in GUI and status messages.
+
+```
+  description: longer description goes here
+```
 Formattable description text like described [here](https://docs.advntr.dev/minimessage/format). 
-Line break is <newline>, not <br>
+Line break is ``<newline>``, but not ``<br>``.
 
-  ``enabled: true``
+```
+  enabled: true
+```
 Will this perk appear in the /perks menu? Can it be enabled by players?
-Yes, you as admin CAN also activate disabled perks.
 
-  ``disabled_worlds: []``
-The plugin will prevent players from activating this perks in this worlds.
-Admins can activate perks anywhere thru commands (but not GUI).
+An admin *can* also activate disabled perks.
+
+```
+  ``disabled_worlds: []
+```
+The plugin will prevent players from activating this perks in this worlds and if it's 
+already activated, the perk will get deactivated when the player enters one of the specified worlds.
+
+Admins *can* activate perks anywhere thru commands (but not thru their GUI).
+
 Example:
-  ``disabled_worlds:``
-  ``- world_nether``
-  ``- world_the_end``
+```
+  disabled_worlds:
+  - world_nether
+  - world_the_end
+```
 
-  ``buyable: true``
-If the user doesn't have the permission for this perk, can he purchase it?
-  
-  ``price: 150000.0``
-If yes, for how much?
+```
+  buyable: true
+```
+If the user doesn't already have the permission for this perk, can he purchase it if he has enough coins?
+
+```
+  price: 150000.0
+```
+If buyable=true, for how much ingame currency?
  
-  ``effectStrength: 0``
+```
+  effectStrength: 0
+```
 In effect perks, you can define the strength, beginning from 0 (which equals Level I).
 
-  ``display_item: WATER_BUCKET``
+```
+  display_item: WATER_BUCKET
+```
 Which item shall be used for displaying it in the GUI?
 
-  ``blacklist: []``
-The double drop perk does support blacklisting mobs that does not generate double drops (as a dupe protection).
+```
+  blacklist: []
+```
+The *double_drop* perk does support blacklisting mobs that will not generate double drops (as a dupe protection).
 Example:
-  ``blacklist:``
-  ``- PLAYER``
-  ``- ZOMBIE``
-  ``- FOX``
-  ``- ALLAY``
-
+```
+  blacklist:
+  - PLAYER
+  - ZOMBIE
+  - FOX
+  - ALLAY
+```
 
 ## Perks
 
