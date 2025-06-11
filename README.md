@@ -153,7 +153,7 @@ Will this perk appear in the /perks menu? Can it be enabled by players?
 An admin *can* also activate disabled perks.
 
 ```
-  ``disabled_worlds: []
+  disabled_worlds: []
 ```
 The plugin will prevent players from activating this perks in this worlds and if it's 
 already activated, the perk will get deactivated when the player enters one of the specified worlds.
