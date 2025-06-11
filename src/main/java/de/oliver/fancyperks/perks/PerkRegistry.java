@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
 import de.oliver.fancyperks.perks.impl.AutoRepairPerk;
+import de.oliver.fancyperks.perks.impl.BlockBreakerPerk;
 import de.oliver.fancyperks.perks.impl.DoubleDropsPerk;
 import de.oliver.fancyperks.perks.impl.EffectPerk;
 import de.oliver.fancyperks.perks.impl.FlyPerk;
@@ -61,8 +62,8 @@ public class PerkRegistry {
     public static final Perk AUTO_REPAIR = new AutoRepairPerk("auto_repair", "Auto repair", "Your tools and armor won't lose durability", new ItemStack(Material.ANVIL));
     public static final Perk AUTO_PLANTING = new SimplePerk("auto_planting", "Auto planting", "Automatically replants crops when harvested", new ItemStack(Material.WHEAT_SEEDS));
     public static final Perk LAVA_RUNNER = new LavaRunnerPerk("lava_runner", "Lava Runner", "Allows you to walk on lava", new ItemStack(Material.MAGMA_BLOCK));
-    public static final Perk DROP_MORE_BLOCKS = new SimplePerk("drop_more_blocks", "Drop more blocks", "Some blocks will drop that usually wouldn't.", new ItemStack(Material.BUDDING_AMETHYST));
-    public static final Perk DROP_SPAWNERS = new SimplePerk("drop_spawners", "Drop mob spawners", "Will drop mob spawners (but not keep mob!)", new ItemStack(Material.SPAWNER));
+    public static final Perk DROP_MORE_BLOCKS = new BlockBreakerPerk("drop_more_blocks", "Drop more blocks", "Some blocks will drop that usually wouldn't.", new ItemStack(Material.BUDDING_AMETHYST));
+    public static final Perk DROP_SPAWNERS = new BlockBreakerPerk("drop_spawners", "Drop mob spawners", "Will drop mob spawners (but not keep mob!)", new ItemStack(Material.SPAWNER));
 
     public static final List<Perk> ALL_PERKS = new ArrayList<>();
 

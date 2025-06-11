@@ -11,6 +11,7 @@ import de.oliver.fancylib.ConfigHelper;
 import de.oliver.fancyperks.gui.customInventories.PerksInventory;
 import de.oliver.fancyperks.perks.Perk;
 import de.oliver.fancyperks.perks.PerkRegistry;
+import de.oliver.fancyperks.perks.impl.BlockBreakerPerk;
 import de.oliver.fancyperks.perks.impl.DoubleDropsPerk;
 import de.oliver.fancyperks.perks.impl.EffectPerk;
 import de.oliver.fancyperks.perks.impl.LavaRunnerPerk;
@@ -90,8 +91,13 @@ public class FancyPerksConfig {
                 String key = perk.getSystemName();
                 int defaultEffectStrength = EffectPerk.defaultEffectStrengths.getOrDefault(key, 0);
 
-                int strength = (int) ConfigHelper.getOrDefault(config, "perks." + perk.getSystemName() + ".effectStrength", defaultEffectStrength);
+                int strength = (int) ConfigHelper.getOrDefault(config, "perks." + perk.getSystemName() + ".effect_strength", defaultEffectStrength);
                 effectPerk.setEffectStrength(strength);
+            }
+
+            if (perk instanceof BlockBreakerPerk blockBreakerPerk) {
+                boolean flag = (boolean) ConfigHelper.getOrDefault(config, "perks." + perk.getSystemName() + ".block_mining_supported_blocks", true);
+                blockBreakerPerk.setBlockMiningSupportedBlocks(flag);
             }
 
         }

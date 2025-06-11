@@ -21,10 +21,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
+import de.oliver.fancylib.MessageHelper;
 import de.oliver.fancyperks.FancyPerks;
 import de.oliver.fancyperks.PerkManager;
 import de.oliver.fancyperks.perks.Perk;
 import de.oliver.fancyperks.perks.PerkRegistry;
+import de.oliver.fancyperks.perks.impl.BlockBreakerPerk;
 
 public class BlockBreakListener implements Listener {
 
@@ -40,10 +42,11 @@ public class BlockBreakListener implements Listener {
 
         PerkManager perkManager = FancyPerks.getInstance().getPerkManager();
         List<Perk> perks = perkManager.getEnabledPerks(p);
+        Block block = event.getBlock();
+        Material type = block.getType();
 
         boolean hasAutoPlanting = perks.contains(PerkRegistry.AUTO_PLANTING);
         if (hasAutoPlanting) {
-            Block block = event.getBlock();
             BlockData blockData = block.getState().getBlockData();
             if (blockData instanceof Ageable ageable && ageable.getAge() == ageable.getMaximumAge()) {
                 FancyPerks.getInstance().getFancyScheduler().runTaskLater(block.getLocation(), 3L, () -> {
@@ -56,8 +59,6 @@ public class BlockBreakListener implements Listener {
 
         boolean hasDropMoreBlocks = perks.contains(PerkRegistry.DROP_MORE_BLOCKS);
         if (hasDropMoreBlocks) {
-            Block block = event.getBlock();
-            Material type = block.getType();
 
             if (type == Material.BUDDING_AMETHYST
              || type == Material.REINFORCED_DEEPSLATE
@@ -81,12 +82,29 @@ public class BlockBreakListener implements Listener {
                     }
                 }
              }
+        } else {
+            
+            if (type == Material.BUDDING_AMETHYST
+             || type == Material.REINFORCED_DEEPSLATE
+             || type == Material.FROGSPAWN) {   
+
+                if (p.getGameMode() == GameMode.SURVIVAL) {
+                    if (!p.isSneaking()) {
+                        
+                        BlockBreakerPerk blockBreakerPerk = (BlockBreakerPerk) PerkRegistry.DROP_MORE_BLOCKS;
+                        if (blockBreakerPerk.getBlockMiningSupportedBlocks()) {
+                            MessageHelper.warning(p, "That block will only drop with the <red>drop_more_blocks</red> perk activated.");
+                            MessageHelper.warning(p, "To <red>DESTROY</red> the block, mine it while sneaking.");
+                            event.setCancelled(true);
+                        }
+                    }
+                }
+             }         
+
         }
 
         boolean hasDropSpawners = perks.contains(PerkRegistry.DROP_SPAWNERS);
         if (hasDropSpawners) {
-            Block block = event.getBlock();
-            Material type = block.getType();
 
             if (type == Material.SPAWNER
             || type == Material.TRIAL_SPAWNER) {
@@ -128,8 +146,22 @@ public class BlockBreakListener implements Listener {
                     }
                 }
             }
+        } else {
+            if (type == Material.SPAWNER
+             || type == Material.TRIAL_SPAWNER) {   
+                if (p.getGameMode() == GameMode.SURVIVAL) {
+                    if (!p.isSneaking()) {
+                        BlockBreakerPerk blockBreakerPerk = (BlockBreakerPerk) PerkRegistry.DROP_SPAWNERS;
+                        if (blockBreakerPerk.getBlockMiningSupportedBlocks()) {
+                            MessageHelper.warning(p, "That block will only drop with the <red>drop_spawners</red> perk activated.");
+                            MessageHelper.warning(p, "To <red>DESTROY</red> the block, mine it while sneaking.");
+                            event.setCancelled(true);
+                    }
+                }
+            }         
         }
 
     }
 
+}
 }
