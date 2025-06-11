@@ -56,9 +56,9 @@ offline players are counting into that number!).
 #### General thoughts about admin commands:
 In short words: This plugin has no brain, use your own :) 
 
-That means, the plugin assumes that as an admin you know what you are doing. So **the plugin does not **
-**check**, for example, **whether a perk is allowed in the player's world or whether the player has **
-**bought that perk at all** if you're using the admin commands (that's _your_ job as admin!). 
+That means, the plugin assumes that as an admin you know what you are doing. So **the plugin does not**
+**check**, for example, **whether a perk is allowed in the player's world or whether the player has**
+**bought that perk at all** if you're using the admin commands (that's _your_ job as admin!).
 So if you fire an admin command, the plugin does exactly what you tell it to do (if it's possible).
 
 It is also important to keep in mind that if you activate, deactivate, enable or disable a perk for an 
