@@ -1,7 +1,9 @@
 package de.oliver.fancyperks.commands;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
 
 import de.oliver.fancylib.MessageHelper;
 import de.oliver.fancyperks.FancyPerks;
+import de.oliver.fancyperks.LanguageHelper;
 import de.oliver.fancyperks.perks.Perk;
 import de.oliver.fancyperks.perks.PerkRegistry;
 
@@ -70,12 +73,16 @@ public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotN
 
         if (args.length >= 1 && args[0].equalsIgnoreCase("version")) {
             ComparableVersion currentVersion = new ComparableVersion(FancyPerks.getInstance().getDescription().getVersion());
-            MessageHelper.success(sender, "You are using FancyPerks version (" + currentVersion + ")");
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("version", currentVersion.toString());
+            String message = LanguageHelper.getLocalizedMessage("version_information", replacements);
+            MessageHelper.success(sender, message);
 
         } else if (args.length >= 1 && args[0].equalsIgnoreCase("reload")) {
             FancyPerks.getInstance().getFanyPerksConfig().reload();
             FancyPerks.getInstance().getLanguageConfig().load();
-            MessageHelper.success(sender, "Reloaded the config");
+            String message = LanguageHelper.getLocalizedMessage("configuration_reloaded", null);
+            MessageHelper.success(sender, message);
 
         } else if (args.length == 3 && args[0].equalsIgnoreCase("enableperk")) {
             String playerName = args[1];

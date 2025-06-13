@@ -12,6 +12,7 @@ import org.bukkit.persistence.PersistentDataType;
 import de.oliver.fancylib.MessageHelper;
 import de.oliver.fancylib.gui.inventoryClick.InventoryItemClick;
 import de.oliver.fancyperks.FancyPerks;
+import de.oliver.fancyperks.LanguageHelper;
 import de.oliver.fancyperks.gui.customInventories.PerksInventory;
 import de.oliver.fancyperks.perks.Perk;
 import de.oliver.fancyperks.perks.PerkRegistry;
@@ -53,18 +54,21 @@ public class BuyPerkInventoryItemClick implements InventoryItemClick {
             Permission permission = FancyPerks.getInstance().getVaultPermission();
 
             if (!economy.has(player, perk.getPrice())) {
-                MessageHelper.error(player, "You don't own enough money to buy this perk");
+                String message = LanguageHelper.getLocalizedMessage("not_enough_money", null);
+                MessageHelper.error(player, message);
                 return;
             }
 
             EconomyResponse response = economy.withdrawPlayer(player, perk.getPrice());
             if (!response.transactionSuccess()) {
-                MessageHelper.warning(player, "Transaction was not successful");
+                String message = LanguageHelper.getLocalizedMessage("transaction_unsuccessful", null);
+                MessageHelper.warning(player, message);
                 return;
             }
 
             if (!permission.playerAdd(null, player, "fancyperks.perk." + perk.getSystemName())) {
-                MessageHelper.warning(player, "Could not give you the perk");
+                String message = LanguageHelper.getLocalizedMessage("permission_unsuccessful", null);
+                MessageHelper.warning(player, message);
                 return;
             }
 

@@ -138,7 +138,10 @@ public class PerkManager {
  
         // check if specified perk exists
         if (perk == null) {
-            MessageHelper.error(actingSender, "There is no perk named '" + perkStr + "'.");
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("perkname", perkStr);
+            String message = LanguageHelper.getLocalizedMessage("no_such_perk", replacements);
+            MessageHelper.error(actingSender, message);
             return false;
         }
 
@@ -149,7 +152,8 @@ public class PerkManager {
 
         // forbid to use perk if no admin and no permissions
         if (!isAdminCommand && !perk.hasPermission(player)) {
-            MessageHelper.error(actingSender, "You don't have permission to use this perk!");
+            String message = LanguageHelper.getLocalizedMessage("no_perk_permission", null);
+            MessageHelper.error(actingSender, message);
             return false;
         }
 
@@ -159,11 +163,13 @@ public class PerkManager {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerName);
             if (!offlinePlayer.hasPlayedBefore()) { 
                 // so this player is not online and never was here
-                MessageHelper.error(actingSender, "No player named " + playerName + " found.");
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("playername", playerName);
+                String message = LanguageHelper.getLocalizedMessage("no_such_player", replacements);
+                MessageHelper.error(actingSender, message);
                 return false;
             }
 
-            MessageHelper.error(actingSender, "Player UUID: " + offlinePlayer.getUniqueId());
             List<Perk> enabledPerks = getEnabledPerks(offlinePlayer.getUniqueId());
 
             if (!enabledPerks.contains(perk)) {
@@ -181,9 +187,11 @@ public class PerkManager {
                 MessageHelper.error(Bukkit.getConsoleSender(), "Could not save player config");
             }
 
-            MessageHelper.success(actingSender, "Activated the " + perk.getDisplayName() + " perk for OFFLINE player " + offlinePlayer.getName() + ".");
-            MessageHelper.success(actingSender, "Keep in mind that for OFFLINE players the world they will spawn in will be ignored.");
-
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("perkname", perk.getDisplayName());
+            replacements.put("playername", offlinePlayer.getName());
+            String message = LanguageHelper.getLocalizedMessage("activated_perk_for_offline_player", replacements);
+            MessageHelper.success(actingSender, message);
             return true;
 
         } else {
@@ -192,9 +200,16 @@ public class PerkManager {
             // case: perk to be activated is already activated
             if (FancyPerks.getInstance().getPerkManager().hasPerkEnabled(player, perk)) {
                 if (isAdminCommand) {
-                    MessageHelper.warning(actingSender, "That player has already activated this perk.");
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("perkname", perk.getDisplayName());
+                    replacements.put("playername", player.getName());
+                    String message = LanguageHelper.getLocalizedMessage("target_player_already_activated_perk", replacements);
+                    MessageHelper.warning(actingSender, message);
                 } else {
-                    MessageHelper.warning(actingSender, "You already activated this perk.");
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("perkname", perk.getDisplayName());
+                    String message = LanguageHelper.getLocalizedMessage("player_already_activated_perk", replacements);
+                    MessageHelper.warning(actingSender, message);
                 }
                 return false;
             }
@@ -202,11 +217,16 @@ public class PerkManager {
             // case: perk disabled for that world (admin override)
             if(perk.disabledWorlds.contains(player.getWorld().getName())){
                 if (!isAdminCommand) {
-                    MessageHelper.warning(actingSender, "The " + perk.getSystemName() + " perk is disabled in this world");
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("perkname", perk.getSystemName());
+                    String message = LanguageHelper.getLocalizedMessage("perk_disabled_in_this_world", replacements);
+                    MessageHelper.warning(actingSender, message);
                     return false;
                 } else {
-                    MessageHelper.warning(actingSender, "Normally, the " + perk.getSystemName() + " perk would be disabled in that world.");
-                    MessageHelper.warning(actingSender, "But as you are admin, you (hopefully) know what you do, so we will allow this.");
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("perkname", perk.getSystemName());
+                    String message = LanguageHelper.getLocalizedMessage("perk_normally_disabled_in_this_world", replacements);
+                    MessageHelper.warning(actingSender, message);
                 }
             }
             
@@ -214,10 +234,19 @@ public class PerkManager {
             perk.forceGrant(player);
 
             if (isAdminCommand) {
-                MessageHelper.success(actingSender, "Activated the " + perk.getDisplayName() + " perk for player " + player.getName() + ".");
-                MessageHelper.success(player, actingSender.getName() + " activated the " + perk.getDisplayName() + " perk for you.");
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("perkname", perk.getDisplayName());
+                replacements.put("playername", player.getName());
+                replacements.put("adminname", actingSender.getName());
+                String message = LanguageHelper.getLocalizedMessage("activated_perk_for_online_player", replacements);                
+                MessageHelper.success(actingSender, message);
+                message = LanguageHelper.getLocalizedMessage("admin_activated_perk_for_you", replacements);
+                MessageHelper.success(player, message);
             } else {
-                MessageHelper.success(actingSender, "Activated the " + perk.getDisplayName() + " perk");
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("perkname", perk.getDisplayName());
+                String message = LanguageHelper.getLocalizedMessage("perk_successfully_activated", replacements);
+                MessageHelper.success(actingSender, message);
             }
             return true;
         }
@@ -242,7 +271,10 @@ public class PerkManager {
 
         // check if specified perk exists
         if (perk == null) {
-            MessageHelper.error(actingSender, "There is no perk named '" + perkStr + "'.");
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("perkname", perkStr);
+            String message = LanguageHelper.getLocalizedMessage("no_such_perk", replacements);
+            MessageHelper.error(actingSender, message);
             return false;
         }
 
@@ -253,7 +285,10 @@ public class PerkManager {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerName);
             if (!offlinePlayer.hasPlayedBefore()) { 
                 // so this player is not online and never was here
-                MessageHelper.error(actingSender, "No player named " + playerName + " found.");
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("playername", playerName);
+                String message = LanguageHelper.getLocalizedMessage("no_such_player", replacements);
+                MessageHelper.error(actingSender, message);
                 return false;
             }
 
@@ -271,9 +306,17 @@ public class PerkManager {
                 MessageHelper.error(Bukkit.getConsoleSender(), "Could not save player config");
             }
 
-            MessageHelper.success(actingSender, "Deactivated the " + perk.getDisplayName() + " perk for OFFLINE player " + offlinePlayer.getName() + ".");
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("perkname", perk.getDisplayName());
+            replacements.put("playername", offlinePlayer.getName());
+            String message = LanguageHelper.getLocalizedMessage("deactivated_perk_for_offline_player", replacements);
+            MessageHelper.success(actingSender, message);
+
             if (perk instanceof EffectPerk) {
-                MessageHelper.info(actingSender, "Keep in mind that this perk is an effect perk. It is not possible to change effects of offline players, so the effect will remain active! Try to remove this perk when player is online.");
+                replacements = new HashMap<>();
+                replacements.put("perkname", perk.getDisplayName());
+                message = LanguageHelper.getLocalizedMessage("admin_notice_effect_perk_offline", replacements);
+                MessageHelper.info(actingSender, message);
             }
 
             return true;
@@ -285,10 +328,17 @@ public class PerkManager {
             perk.revoke(player);
 
             if (isAdminCommand) {
-                MessageHelper.success(actingSender, "Deactivated the " + perk.getDisplayName() + " perk for player " + player.getName() + ".");
-                MessageHelper.success(player, actingSender.getName() + " deactivated your " + perk.getDisplayName() + " perk.");
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("perkname", perk.getDisplayName());
+                replacements.put("playername", player.getName());
+                replacements.put("adminname", actingSender.getName());
+                String message = LanguageHelper.getLocalizedMessage("deactivated_perk_for_online_player", replacements);
+                MessageHelper.success(actingSender, message);
+                message = LanguageHelper.getLocalizedMessage("admin_deactivated_your_perk", replacements);
+                MessageHelper.success(player, message);
             } else {
-                MessageHelper.success(actingSender, "Deactivated the " + perk.getDisplayName() + " perk");
+                String message = LanguageHelper.getLocalizedMessage("perk_successfully_deactivated", null);
+                MessageHelper.success(actingSender, message);
             }
             return true;
         }
@@ -300,20 +350,29 @@ public class PerkManager {
         String playerUUID = offlinePlayer.getUniqueId().toString();
 
         if (playerUUID == null) {
-            MessageHelper.error(actingAdmin, "No player found with name: " + playerName);
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("playername", playerName);
+                String message = LanguageHelper.getLocalizedMessage("no_such_player", replacements);
+                MessageHelper.error(actingAdmin, message);
         }
         else {
 
             YamlConfiguration config = YamlConfiguration.loadConfiguration(playersConfig);
             if (!config.isConfigurationSection("perks")) {
-                MessageHelper.error(actingAdmin, "Player configuration seems to be invalid.");
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("playername", playerName);
+                String message = LanguageHelper.getLocalizedMessage("player_configuration_invalid", replacements);
+                MessageHelper.error(actingAdmin, message);                
                 return;
             }
             
             List<String> activePerks = new ArrayList<>();
             List<String> inactivePerks = new ArrayList<>();
             if (config.getConfigurationSection("perks." + playerUUID) == null) {
-                MessageHelper.error(actingAdmin, "This player has no perks yet.");
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("playername", playerName);
+                String message = LanguageHelper.getLocalizedMessage("player_has_no_perks_yet", replacements);
+                MessageHelper.error(actingAdmin, message);                
                 return;
             }
 
@@ -336,14 +395,28 @@ public class PerkManager {
             Collections.sort(activePerks);
             Collections.sort(inactivePerks);
 
-            MessageHelper.success(actingAdmin, "The player " + playerName + " has these ACTIVE perks:");
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("player", playerName);
+            String message = LanguageHelper.getLocalizedMessage("perk_list_active_perks", replacements);
+            MessageHelper.success(actingAdmin, message);
+
             for (String perkName : activePerks) {
-                MessageHelper.success(actingAdmin, "- " + perkName);
+                replacements = new HashMap<>();
+                replacements.put("perkname", perkName);
+                message = LanguageHelper.getLocalizedMessage("perk_list_entry_active_perk", replacements);
+                MessageHelper.success(actingAdmin, message);
             }            
 
-            MessageHelper.success(actingAdmin, "and these INACTIVE perks:");
+            replacements = new HashMap<>();
+            replacements.put("player", playerName);
+            message = LanguageHelper.getLocalizedMessage("perk_list_inactive_perks", replacements);
+            MessageHelper.success(actingAdmin, message);
+
             for (String perkName : inactivePerks) {
-                MessageHelper.success(actingAdmin, "- " + perkName);
+                replacements = new HashMap<>();
+                replacements.put("perkname", perkName);
+                message = LanguageHelper.getLocalizedMessage("perk_list_entry_inactive_perk", replacements);
+                MessageHelper.success(actingAdmin, message);
             }            
 
         }
@@ -355,39 +428,58 @@ public class PerkManager {
             for (Perk perk : PerkRegistry.ALL_PERKS) {
                 if (perk.hasPermission(player) && !FancyPerks.getInstance().getPerkManager().hasPerkEnabled(player, perk)) {
                     if (!perk.grant(player)) {
-                        MessageHelper.warning(player, "The " + perk.getSystemName() + " perk is disabled in this world");
+                        Map<String, String> replacements = new HashMap<>();
+                        replacements.put("perkname", perk.getSystemName());
+                        String message = LanguageHelper.getLocalizedMessage("perk_disabled_in_this_world", replacements);
+                        MessageHelper.warning(player, message);                        
                         continue;
                     }
                     activatedPerks.add(perk.getDisplayName());
                 }
             }
 
-            MessageHelper.success(player, "Activated all perks (" + String.join(", ", activatedPerks) + ")");
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("perklist", String.join(", ", activatedPerks));
+            String message = LanguageHelper.getLocalizedMessage("activated_all_perks", replacements);
+            MessageHelper.success(player, message);   
             return true;
         }
 
         Perk perk = PerkRegistry.getPerkByName(perkStr);
         if (perk == null) {
-            MessageHelper.error(player, "Could not find perk with name: '" + perkStr + "'");
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("perkname", perkStr);
+            String message = LanguageHelper.getLocalizedMessage("no_such_perk", replacements);
+            MessageHelper.error(player, message);            
             return false;
         }
 
         if (FancyPerks.getInstance().getPerkManager().hasPerkEnabled(player, perk)) {
-            MessageHelper.warning(player, "This perk is already active.");
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("perkname", perk.getDisplayName());
+            String message = LanguageHelper.getLocalizedMessage("player_already_activated_perk", replacements);
+            MessageHelper.warning(player, message);
             return true;
         }
 
         if (!perk.hasPermission(player)) {
-            MessageHelper.error(player, "You don't have permission to use this perk");
+            String message = LanguageHelper.getLocalizedMessage("no_perk_permission", null);
+            MessageHelper.error(player, message);            
             return false;
         }
 
         if (!perk.grant(player)) {
-            MessageHelper.warning(player, "The " + perk.getSystemName() + " perk is disabled in this world");
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("perkname", perk.getSystemName());
+            String message = LanguageHelper.getLocalizedMessage("perk_disabled_in_this_world", replacements);
+            MessageHelper.warning(player, message);
             return false;
         }
 
-        MessageHelper.success(player, "Activated the " + perk.getDisplayName() + " perk");
+        Map<String, String> replacements = new HashMap<>();
+        replacements.put("perkname", perk.getDisplayName());
+        String message = LanguageHelper.getLocalizedMessage("perk_successfully_activated", replacements);
+        MessageHelper.success(player, message);
         return true;
     }
 
@@ -400,24 +492,35 @@ public class PerkManager {
                     deactivatedPerks.add(perk.getDisplayName());
                 }
             }
-
-            MessageHelper.success(player, "Deactivated all perks (" + String.join(", ", deactivatedPerks) + ")");
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("perklist", String.join(", ", deactivatedPerks));
+            String message = LanguageHelper.getLocalizedMessage("deactivated_all_perks", replacements);
+            MessageHelper.success(player, message);
             return true;
         }
 
         Perk perk = PerkRegistry.getPerkByName(perkStr);
         if (perk == null) {
-            MessageHelper.error(player, "Could not find perk with name: '" + perkStr + "'");
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("perkname", perkStr);
+            String message = LanguageHelper.getLocalizedMessage("no_such_perk", replacements);
+            MessageHelper.error(player, message);
             return false;
         }
 
         if (!FancyPerks.getInstance().getPerkManager().hasPerkEnabled(player, perk)) {
-            MessageHelper.warning(player, "You already deactivated this perk");
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("perkname", perk.getDisplayName());
+            String message = LanguageHelper.getLocalizedMessage("player_dealready_activated_perk", replacements);
+            MessageHelper.warning(player, message);
             return true;
         }
 
         perk.revoke(player);
-        MessageHelper.success(player, "Deactivated the " + perk.getDisplayName() + " perk");
+        Map<String, String> replacements = new HashMap<>();
+        replacements.put("perkname", perk.getDisplayName());
+        String message = LanguageHelper.getLocalizedMessage("perk_successfully_deactivated", replacements);
+        MessageHelper.success(player, message);
         return true;
     }
 
@@ -438,7 +541,10 @@ public class PerkManager {
             if (performSilent) {
                 Bukkit.getLogger().log(Level.WARNING, "There is no perk named {0}.", perkStr);
             } else {
-                MessageHelper.error(actingSender, "There is no perk named '" + perkStr + "'.");
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("perkname", perkStr);
+                String message = LanguageHelper.getLocalizedMessage("no_such_perk", replacements);
+                MessageHelper.error(actingSender, message);
             } 
             return false;
         }
@@ -451,7 +557,8 @@ public class PerkManager {
         // forbid to use perk if no admin and no permissions
         if (!isAdminCommand && !perk.hasPermission(player)) {
             if (!performSilent) {
-                MessageHelper.error(actingSender, "You don't have permission to use this perk!");
+                String message = LanguageHelper.getLocalizedMessage("no_perk_permission", null);
+                MessageHelper.error(actingSender, message);
             }
             return false;
         }
@@ -465,7 +572,10 @@ public class PerkManager {
                 if (performSilent) {
                     Bukkit.getLogger().log(Level.WARNING, "No player named {0} found.", playerName);
                 } else {
-                    MessageHelper.error(actingSender, "No player named " + playerName + " found.");
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("playername", playerName);
+                    String message = LanguageHelper.getLocalizedMessage("no_such_player", replacements);
+                    MessageHelper.error(actingSender, message);
                 }
                 return false;
             }
@@ -496,7 +606,11 @@ public class PerkManager {
             }
 
             if (!performSilent) {
-                MessageHelper.success(actingSender, "Granted and activated the " + perk.getDisplayName() + " perk for OFFLINE player " + offlinePlayer.getName() + " for free.");
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("perkname", perk.getDisplayName());
+                replacements.put("playername", offlinePlayer.getName());
+                String message = LanguageHelper.getLocalizedMessage("perk_granted_and_activated_offline", replacements);
+                MessageHelper.success(actingSender, message);              
             }
 
             return true;
@@ -512,7 +626,11 @@ public class PerkManager {
                     if (performSilent) {
                         Bukkit.getLogger().log(Level.WARNING, "Could not give the perk permissions to player {0}.", playerName);
                     } else {
-                        MessageHelper.warning(actingSender, "Could not give the perk permissions to player " + playerName);
+                        Map<String, String> replacements = new HashMap<>();
+                        replacements.put("perkpermission", "fancyperks.perk." + perk.getSystemName());
+                        replacements.put("playername", playerName);
+                        String message = LanguageHelper.getLocalizedMessage("cannot_give_perk_permissions_to_player", replacements);
+                        MessageHelper.warning(actingSender, message);                          
                     }
                     return false;
                 }
@@ -521,13 +639,20 @@ public class PerkManager {
             // case: perk to be activated is already activated
             if (FancyPerks.getInstance().getPerkManager().hasPerkEnabled(player, perk)) {
                 if (performSilent) {
-                    Bukkit.getLogger().log(Level.WARNING, "Could not give the perk permissions to player {0}.", playerName);
                     return true; // in bulk actions, simply ignore this
                 } else {
                     if (isAdminCommand) {
-                        MessageHelper.warning(actingSender, "That player has already activated this perk.");
+                        Map<String, String> replacements = new HashMap<>();
+                        replacements.put("perkname", perk.getDisplayName());
+                        replacements.put("playername", playerName);
+                        String message = LanguageHelper.getLocalizedMessage("target_player_already_activated_perk", replacements);
+                        MessageHelper.warning(actingSender, message);
                     } else {
-                        MessageHelper.warning(actingSender, "You already activated this perk.");
+                        Map<String, String> replacements = new HashMap<>();
+                        replacements.put("perkname", perk.getDisplayName());
+                        replacements.put("playername", playerName);
+                        String message = LanguageHelper.getLocalizedMessage("player_already_activated_perk", replacements);
+                        MessageHelper.warning(actingSender, message);
                     }
                     return false;
                 }
@@ -536,12 +661,17 @@ public class PerkManager {
             // case: perk disabled for that world (admin override)
             if(perk.disabledWorlds.contains(player.getWorld().getName())){
                 if (!isAdminCommand) {
-                    MessageHelper.warning(actingSender, "The " + perk.getSystemName() + " perk is disabled in this world");
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("perkname", perk.getSystemName());
+                    String message = LanguageHelper.getLocalizedMessage("perk_disabled_in_this_world", replacements);
+                    MessageHelper.warning(actingSender, message);
                     return false;
                 } else {
                     if (!performSilent) {
-                        MessageHelper.warning(actingSender, "Normally, the " + perk.getSystemName() + " perk would be disabled in that world.");
-                        MessageHelper.warning(actingSender, "But as you are admin, you (hopefully) know what you do, so we will allow this.");
+                        Map<String, String> replacements = new HashMap<>();
+                        replacements.put("perkname", perk.getSystemName());
+                        String message = LanguageHelper.getLocalizedMessage("perk_normally_disabled_in_this_world", replacements);
+                        MessageHelper.warning(actingSender, message);
                     }
                 }
             }
@@ -551,10 +681,24 @@ public class PerkManager {
 
             if (!performSilent) {
                 if (isAdminCommand) {
-                    MessageHelper.success(actingSender, "Granted permissions and activated the " + perk.getDisplayName() + " perk for player " + player.getName() + ".");
-                    MessageHelper.success(player, actingSender.getName() + " granted permissions and activated the " + perk.getDisplayName() + " perk for you.");
+
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("perkname", perk.getSystemName());
+                    replacements.put("playername", playerName);
+                    replacements.put("adminname", actingSender.getName());
+
+                    String message = LanguageHelper.getLocalizedMessage("perk_granted_admin", replacements);
+                    MessageHelper.success(actingSender, message);
+
+                    message = LanguageHelper.getLocalizedMessage("admin_granted_perk_for_you", replacements);
+                    MessageHelper.success(player, message);                    
+
                 } else {
-                    MessageHelper.success(actingSender, "Granted permissions and activated the " + perk.getDisplayName() + " perk.");
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("perkname", perk.getSystemName());
+
+                    String message = LanguageHelper.getLocalizedMessage("perk_granted_admin", replacements);
+                    MessageHelper.success(actingSender, message);                   
                 }
             }
             return true;
@@ -580,8 +724,10 @@ public class PerkManager {
         // check if specified perk exists
         if (perk == null) {
             if (!performSilent) {
-                MessageHelper.error(actingSender, "There is no perk named '" + perkStr + "'.");
-            }
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("perkname", perkStr);
+                String message = LanguageHelper.getLocalizedMessage("no_such_perk", replacements);
+                MessageHelper.error(actingSender, message);            }
             return false;
         }
 
@@ -593,8 +739,10 @@ public class PerkManager {
             if (!offlinePlayer.hasPlayedBefore()) { 
                 // so this player is not online and never was here
                 if (!performSilent) {
-                    MessageHelper.error(actingSender, "No player named " + playerName + " found.");
-                }
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("playername", playerName);
+                    String message = LanguageHelper.getLocalizedMessage("no_such_player", replacements);
+                    MessageHelper.error(actingSender, message);                }
                 return false;
             }
 
@@ -619,9 +767,18 @@ public class PerkManager {
             }
 
             if (!performSilent) {
-                MessageHelper.success(actingSender, "Revoked permissions and deactivated the " + perk.getDisplayName() + " perk for OFFLINE player " + offlinePlayer.getName() + ".");
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("playername", offlinePlayer.getName());
+                replacements.put("perkname", perk.getSystemName());
+
+                String message = LanguageHelper.getLocalizedMessage("perk_revoked_and_deactivated_offline", replacements);
+                MessageHelper.success(actingSender, message);
+
                 if (perk instanceof EffectPerk) {
-                    MessageHelper.info(actingSender, "Keep in mind that this perk is an effect perk. It is not possible to change effects of offline players, so the effect will remain active! Try to remove this perk when player is online.");
+                    replacements = new HashMap<>();
+                    replacements.put("perkname", perk.getDisplayName());
+                    message = LanguageHelper.getLocalizedMessage("admin_notice_effect_perk_offline", replacements);
+                    MessageHelper.info(actingSender, message);                    
                 }
             }
 
@@ -633,7 +790,11 @@ public class PerkManager {
             Permission permission = FancyPerks.getInstance().getVaultPermission();
             if (!permission.playerRemove(null, player, "fancyperks.perk." + perk.getSystemName())) {
                 if (!performSilent) {
-                    MessageHelper.warning(player, "Could not remove the perk permissions from player " + playerName);
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("perkpermission", "fancyperks.perk." + perk.getSystemName());
+                    replacements.put("playername", playerName);
+                    String message = LanguageHelper.getLocalizedMessage("cannot_take_perk_permissions_from_player", replacements);
+                    MessageHelper.warning(actingSender, message);
                 }
                 return false;
             }
@@ -643,10 +804,22 @@ public class PerkManager {
 
             if (!performSilent) {
                 if (isAdminCommand) {
-                    MessageHelper.success(actingSender, "Revoked permissions and deactivated the " + perk.getDisplayName() + " perk for player " + player.getName() + ".");
-                    MessageHelper.success(player, actingSender.getName() + " removed permissions for and deactivated your " + perk.getDisplayName() + " perk.");
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("perkname", perk.getSystemName());
+                    replacements.put("playername", playerName);
+                    replacements.put("adminname", actingSender.getName());
+
+                    String message = LanguageHelper.getLocalizedMessage("perk_revoked_and_deactivated_online", replacements);
+                    MessageHelper.success(actingSender, message);
+
+                    message = LanguageHelper.getLocalizedMessage("admin_revoked_perk_from_you", replacements);
+                    MessageHelper.success(player, message);
+
                 } else {
-                    MessageHelper.success(actingSender, "Revoked permissions and deactivated the " + perk.getDisplayName() + " perk");
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("perkname", perk.getSystemName());
+                    String message = LanguageHelper.getLocalizedMessage("perk_revoked_and_deactivated", replacements);
+                    MessageHelper.success(actingSender, message);
                 }
             }
             return true;
@@ -661,9 +834,11 @@ public class PerkManager {
 
             Bukkit.getScheduler().runTask(plugin, () -> {
                 if (result) {
-                    MessageHelper.success(actingSender, "Mass grant completed.");
+                    String message = LanguageHelper.getLocalizedMessage("mass_grant_completed", null);
+                    MessageHelper.success(actingSender, message);                    
                 } else {
-                    MessageHelper.error(actingSender, "Mass grant failed.");
+                    String message = LanguageHelper.getLocalizedMessage("mass_grant_failed", null);
+                    MessageHelper.success(actingSender, message);          
                 }
             });
         });
@@ -676,9 +851,11 @@ public class PerkManager {
 
             Bukkit.getScheduler().runTask(plugin, () -> {
                 if (result) {
-                    MessageHelper.success(actingSender, "Mass revoke completed.");
+                    String message = LanguageHelper.getLocalizedMessage("mass_revoke_completed", null);
+                    MessageHelper.success(actingSender, message);                    
                 } else {
-                    MessageHelper.error(actingSender, "Mass revoke failed.");
+                    String message = LanguageHelper.getLocalizedMessage("mass_revoke_failed", null);
+                    MessageHelper.success(actingSender, message);          
                 }
             });
         });
@@ -696,7 +873,10 @@ public class PerkManager {
         // check if specified perk exists
         Perk perk = PerkRegistry.getPerkByName(perkStr);
         if (perk == null) {
-            MessageHelper.error(actingSender, "There is no perk named '" + perkStr + "'.");
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("perkname", perkStr);
+            String message = LanguageHelper.getLocalizedMessage("no_such_perk", replacements);
+            MessageHelper.error(actingSender, message);
             return false;
         }
 
@@ -707,24 +887,38 @@ public class PerkManager {
             .collect(Collectors.toList());
 
         int successCount = 0;
+        int failedCount = 0;
+        int totalPlayerCount = 0;
         List<String> failedPlayers = new ArrayList<>();
 
         for (String playerName : players) {
             try {
+                totalPlayerCount++;
                 boolean success = grantPerkTo(playerName, perkStr, true, actingSender, true);
                 if (success) {
                     successCount++;
                 } else {
+                    failedCount++;
                     failedPlayers.add(playerName);
                 }
             } catch (Exception e) {
                 failedPlayers.add(playerName);
             }
         }
+       
+        Map<String, String> replacements = new HashMap<>();
+        replacements.put("perkname", perkStr);
+        replacements.put("successfulplayers", String.valueOf(successCount));
+        replacements.put("totalplayers", String.valueOf(totalPlayerCount));
+        String message = LanguageHelper.getLocalizedMessage("mass_grant_successful", replacements);
+        MessageHelper.success(actingSender, message);
 
-        MessageHelper.success(actingSender, "Successfully granted " + perkStr + " perk for " + successCount + " of " + players.size() + " players" + " players");
         if (!failedPlayers.isEmpty()) {
-            MessageHelper.error(actingSender, "With " + failedPlayers.size() + " players, that did not work, see console for list of affected players.");
+            replacements = new HashMap<>();
+            replacements.put("failedplayers", String.valueOf(failedCount));
+            message = LanguageHelper.getLocalizedMessage("mass_action_failed_players", replacements);
+            MessageHelper.error(actingSender, message);
+
             Bukkit.getLogger().log(Level.WARNING, "Failed granting perks for {0} perk for these players'':", perkStr);
             for (String failed : failedPlayers) {
                 Bukkit.getLogger().log(Level.WARNING, "- {0}", failed);
@@ -749,14 +943,19 @@ public class PerkManager {
             .collect(Collectors.toList());
 
         int successCount = 0;
+        int failedCount = 0;
+        int totalPlayerCount = 0;
+
         List<String> failedPlayers = new ArrayList<>();
 
         for (String playerName : players) {
             try {
+                totalPlayerCount++;
                 boolean success = revokePerkFrom(playerName, perkStr, true, actingSender, true);
                 if (success) {
                     successCount++;
                 } else {
+                    failedCount++;
                     failedPlayers.add(playerName);
                 }
             } catch (Exception e) {
@@ -764,9 +963,19 @@ public class PerkManager {
             }
         }
 
-        MessageHelper.success(actingSender, "Successfully revoked " + perkStr + " perk for " + successCount + " of " + players.size() + " players" + " players");
+        Map<String, String> replacements = new HashMap<>();
+        replacements.put("perkname", perkStr);
+        replacements.put("successfulplayers", String.valueOf(successCount));
+        replacements.put("totalplayers", String.valueOf(totalPlayerCount));
+        String message = LanguageHelper.getLocalizedMessage("mass_revoke_successful", replacements);
+        MessageHelper.success(actingSender, message);
+
         if (!failedPlayers.isEmpty()) {
-            MessageHelper.error(actingSender, "With " + failedPlayers.size() + " players, that did not work, see console for list of affected players.");
+            replacements = new HashMap<>();
+            replacements.put("failedplayers", String.valueOf(failedCount));
+            message = LanguageHelper.getLocalizedMessage("mass_action_failed_players", replacements);
+            MessageHelper.error(actingSender, message);
+
             Bukkit.getLogger().log(Level.WARNING, "Failed granting perks for ''{0} perk for these players'':", perkStr);
             for (String failed : failedPlayers) {
                 Bukkit.getLogger().log(Level.WARNING, "- {0}", failed);

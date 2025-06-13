@@ -1,14 +1,19 @@
 package de.oliver.fancyperks.listeners;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 import de.oliver.fancylib.MessageHelper;
 import de.oliver.fancyperks.FancyPerks;
+import de.oliver.fancyperks.LanguageHelper;
 import de.oliver.fancyperks.perks.Perk;
 import de.oliver.fancyperks.perks.PerkRegistry;
 import net.luckperms.api.event.EventBus;
 import net.luckperms.api.event.node.NodeAddEvent;
 import net.luckperms.api.model.user.User;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 public class LuckPermsListener {
 
@@ -38,13 +43,23 @@ public class LuckPermsListener {
 
             if (event.getNode().getValue() && perk.hasPermission(p)) {
                 if(!perk.grant(p)){
-                    MessageHelper.warning(p, "The " + perk.getSystemName() + " perk is disabled in this world");
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("perkname", perk.getSystemName());
+                    String message = LanguageHelper.getLocalizedMessage("perk_disabled_in_this_world", replacements);                    
+                    MessageHelper.warning(p, message);
                     return;
                 }
-                MessageHelper.success(p, "Automatically enabled the " + perk.getDisplayName() + " perk");
+                
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("perkname", perk.getSystemName());
+                String message = LanguageHelper.getLocalizedMessage("perk_automatically_enabled", replacements);
+                MessageHelper.success(p, message);
             } else if (!perk.hasPermission(p)) {
                 perk.revoke(p);
-                MessageHelper.success(p, "Automatically disabled the " + perk.getDisplayName() + " perk");
+                Map<String, String> replacements = new HashMap<>();
+                replacements.put("perkname", perk.getSystemName());
+                String message = LanguageHelper.getLocalizedMessage("perk_automatically_disabled", replacements);
+                MessageHelper.success(p, message);
             }
         }
 

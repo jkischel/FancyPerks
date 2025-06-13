@@ -1,19 +1,23 @@
 package de.oliver.fancyperks.gui.inventoryClick;
 
-import de.oliver.fancylib.MessageHelper;
-import de.oliver.fancylib.gui.inventoryClick.InventoryItemClick;
-import de.oliver.fancyperks.FancyPerks;
-import de.oliver.fancyperks.gui.customInventories.PerksInventory;
-import de.oliver.fancyperks.perks.Perk;
-import de.oliver.fancyperks.perks.PerkRegistry;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.Collections;
-import java.util.List;
+import de.oliver.fancylib.MessageHelper;
+import de.oliver.fancylib.gui.inventoryClick.InventoryItemClick;
+import de.oliver.fancyperks.FancyPerks;
+import de.oliver.fancyperks.LanguageHelper;
+import de.oliver.fancyperks.gui.customInventories.PerksInventory;
+import de.oliver.fancyperks.perks.Perk;
+import de.oliver.fancyperks.perks.PerkRegistry;
 
 public class TogglePerkInventoryItemClick implements InventoryItemClick {
 
@@ -53,12 +57,16 @@ public class TogglePerkInventoryItemClick implements InventoryItemClick {
                 event.setCurrentItem(PerksInventory.getDisabledPerkItem(perk));
             } else {
                 if (!perk.hasPermission(player)) {
-                    MessageHelper.error(p, "You don't have permission to use this perk");
+                    String message = LanguageHelper.getLocalizedMessage("no_perk_permission", null);
+                    MessageHelper.error(p, message);
                     return;
                 }
 
                 if(!perk.grant(p)){
-                    MessageHelper.warning(player, "The " + perk.getSystemName() + " perk is disabled in this world");
+                    Map<String, String> replacements = new HashMap<>();
+                    replacements.put("perkname", perk.getSystemName());
+                    String message = LanguageHelper.getLocalizedMessage("perk_disabled_in_this_world", replacements);
+                    MessageHelper.warning(player, message);
                     return;
                 }
 

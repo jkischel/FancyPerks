@@ -92,7 +92,6 @@ public abstract class Perk {
             });
         } else {
             item.editMeta(itemMeta -> {
-                
                 itemMeta.displayName(MessageHelper.removeDecoration(MiniMessage.miniMessage().deserialize("<color:" + primaryColor + ">" + displayName + "</color>"), TextDecoration.ITALIC));
                 itemMeta.lore(loreLines);
                 itemMeta.getPersistentDataContainer().set(InventoryItemClick.ON_CLICK_KEY, PersistentDataType.STRING, "cancelClick");

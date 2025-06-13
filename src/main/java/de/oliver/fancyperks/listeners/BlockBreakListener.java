@@ -23,6 +23,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import de.oliver.fancylib.MessageHelper;
 import de.oliver.fancyperks.FancyPerks;
+import de.oliver.fancyperks.LanguageHelper;
 import de.oliver.fancyperks.PerkManager;
 import de.oliver.fancyperks.perks.Perk;
 import de.oliver.fancyperks.perks.PerkRegistry;
@@ -93,8 +94,11 @@ public class BlockBreakListener implements Listener {
                         
                         BlockBreakerPerk blockBreakerPerk = (BlockBreakerPerk) PerkRegistry.DROP_MORE_BLOCKS;
                         if (blockBreakerPerk.getBlockMiningSupportedBlocks()) {
-                            MessageHelper.warning(p, "That block will only drop with the <red>drop_more_blocks</red> perk activated.");
-                            MessageHelper.warning(p, "To <red>DESTROY</red> the block, mine it while sneaking.");
+                            String message = LanguageHelper.getLocalizedMessage("block_will_drop_with_drop_more_blocks_perk", null);
+                            MessageHelper.warning(p, message);
+
+                            message = LanguageHelper.getLocalizedMessage("sneak_to_destroy_block", null);
+                            MessageHelper.warning(p, message);
                             event.setCancelled(true);
                         }
                     }
@@ -153,14 +157,15 @@ public class BlockBreakListener implements Listener {
                     if (!p.isSneaking()) {
                         BlockBreakerPerk blockBreakerPerk = (BlockBreakerPerk) PerkRegistry.DROP_SPAWNERS;
                         if (blockBreakerPerk.getBlockMiningSupportedBlocks()) {
-                            MessageHelper.warning(p, "That block will only drop with the <red>drop_spawners</red> perk activated.");
-                            MessageHelper.warning(p, "To <red>DESTROY</red> the block, mine it while sneaking.");
+                            String message = LanguageHelper.getLocalizedMessage("block_will_drop_with_drop_spawners_perk", null);
+                            MessageHelper.warning(p, message);
+                            message = LanguageHelper.getLocalizedMessage("sneak_to_destroy_block", null);
+                            MessageHelper.warning(p, message);
                             event.setCancelled(true);
                     }
                 }
             }         
         }
-
     }
 
 }
