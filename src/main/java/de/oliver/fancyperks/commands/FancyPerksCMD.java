@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -72,9 +71,8 @@ public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotN
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if (args.length >= 1 && args[0].equalsIgnoreCase("version")) {
-            ComparableVersion currentVersion = new ComparableVersion(FancyPerks.getInstance().getDescription().getVersion());
             Map<String, String> replacements = new HashMap<>();
-            replacements.put("version", currentVersion.toString());
+            replacements.put("versioninfo", FancyPerks.getInstance().getDescription().getVersion());
             String message = LanguageHelper.getLocalizedMessage("version_information", replacements);
             MessageHelper.success(sender, message);
 

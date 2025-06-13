@@ -1,7 +1,7 @@
 name: FancyPerks
 description: $description
 author: OliverHD, DatLicht, FemBoysAreCut3
-version: $version
+version: ${project.version}
 folia-supported: true
 main: de.oliver.fancyperks.FancyPerks
 api-version: 1.21

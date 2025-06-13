@@ -6,7 +6,7 @@
 
     <groupId>de.oliver</groupId>
     <artifactId>FancyPerks</artifactId>
-    <version>2.6</version>
+    <version>2.7</version>
     <packaging>jar</packaging>
     <name>FancyPerks</name>
     <description>Simple plugin that adds perks to your server</description>

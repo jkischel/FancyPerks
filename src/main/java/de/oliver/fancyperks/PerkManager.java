@@ -396,7 +396,7 @@ public class PerkManager {
             Collections.sort(inactivePerks);
 
             Map<String, String> replacements = new HashMap<>();
-            replacements.put("player", playerName);
+            replacements.put("playername", playerName);
             String message = LanguageHelper.getLocalizedMessage("perk_list_active_perks", replacements);
             MessageHelper.success(actingAdmin, message);
 
@@ -408,7 +408,7 @@ public class PerkManager {
             }            
 
             replacements = new HashMap<>();
-            replacements.put("player", playerName);
+            replacements.put("playername", playerName);
             message = LanguageHelper.getLocalizedMessage("perk_list_inactive_perks", replacements);
             MessageHelper.success(actingAdmin, message);
 

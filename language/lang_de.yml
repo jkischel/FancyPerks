@@ -1,0 +1,99 @@
+messages:
+  perk_successfully_activated: Das Perk <red>${perkname}</red> wurde erfolgreich aktiviert.
+  mass_revoke_failed: Der Massen-Rechteentzug fehlgeschlagen.
+  deactivated_all_perks: Alle deine Perks wurden deaktiviert (<red>${perklist}</red>).
+  mass_revoke_completed: Der Massen-Rechteentzug war erfolgreich.
+  perk_granted_and_activated: Die Berechtigungen für das <red>${perkname}</red> Perk
+    wurden erteilt und das Perk aktiviert.
+  player_has_no_perks_yet: Der Spieler <red>${playername}</red> hatte bis jetzt keine
+    Perks (oder nie eines davon benutzt).
+  prefix: <gradient:dark_green:green>[FancyPerks]</gradient>
+  cannot_give_perk_permissions_to_player: Kann dem Spieler <red>${playername}</red>
+    die Berechtigung <red>${perkpermissions}</red> nicht erteilen.
+  target_player_already_activated_perk: Der Spieler <red>${playername}</red> hat das
+    <red>${perkname}</red> Perk bereits aktiviert.
+  gui_click_to_toggle: <yellow>Klick zum Umschalten</yellow>
+  player_dealready_activated_perk: Du hast das <red>${perkname}</red> Perk bereits
+    deaktiviert.
+  player_configuration_invalid: Die Perk-Konfiguration des Spielers <red>${playername}</red>
+    scheint ungültig zu sein.
+  activated_perk_for_offline_player: Das Perk <red>${perkname}</red> wurde für den
+    OFFLINE-Spieler <red>${playername}</red> aktiviert.
+  gui_price: '<yellow>Preis: ${price}</yellow>'
+  perk_list_active_perks: 'Der Spieler <red>${playername}</red> hat die folgenden
+    AKTIVIERTEN Perks:'
+  deactivated_perk_for_online_player: Das Perk <red>${perkname}</red> wurde für den
+    Spieler <red>${playername}</red> deaktiviert.
+  perk_granted_and_activated_offline: Die Berechtigung für das Perk <red>${perkname}</red>
+    für den OFFLINE-Spieler <red>${playername}</red> wurde erteilt und das Perk aktiviert.
+  gui_perk_is_disabled: <gradient:dark_red:red>Perk ist deaktiviert</gradient>
+  sneak_to_destroy_block: Um den Block zu <red>ZERSTÖREN</red>, musst du beim Abbauen
+    sneaken.
+  mass_grant_completed: Die Massen-Rechtegewährung erfolgreich..
+  perk_list_inactive_perks: 'und diese DEAKTIVIERTEN Perks:'
+  mass_revoke_successful: Die Berechtigungen für das Perk <red>${perkname}</red> wurden
+    für <red>${successfulplayers} Spieler </red> von <red>${totalplayers} Spielern
+    erfolgreich entzogen.</red>.
+  mass_grant_failed: Die Massen-Rechtegewährung ist fehlgeschlagen.
+  no_such_player: Es gibt hier keinen Spieler mit dem Namen <red>${playername}</red>.
+  permission_unsuccessful: Die Berechtigung kann dir leider nicht eingerichtet werden.
+  admin_activated_perk_for_you: <red>${adminname}</red> hat den <red>${perkname}</red>
+    Perk für dich aktiviert.
+  mass_action_failed_players: Bei <red>${failedplayers}</red> Spielern hat das nicht
+    funktioniert - in der Konsole steht eine Liste der betroffenen Spieler.
+  perk_list_entry_inactive_perk: '- <gray>${perkname}</gray>'
+  perk_automatically_disabled: Das <red>${perkname}</red> Perk wurde automatisch deaktiviert.
+  configuration_reloaded: Konfiguration neu eingelesen.
+  deactivated_perk_for_offline_player: Das <red>${perkname}</red> Perk wurde für OFFLINE-Spieler
+    <red>${playername}</red> deaktiviert.
+  gui_previous_page: <yellow>vorherige Seite</yellow>
+  activated_all_perks: Alle deine Perks wurden aktiviert (<red>${perklist}</red>).
+  activated_perk_for_online_player: Das <red>${perkname}</red> Perk wurde für den
+    Spieler <red>${playername}</red> aktiviert.
+  version_information: Du verwendest <red>FancyPerks</red> in Version <red>${versioninfo}</red>.
+  gui_you_dont_own_this_perk: <gradient:gold:yellow>Du besitzt dieses Perk nicht.</gradient>
+  no_such_perk: Es gibt kein Perk namens <red>${perkname}</red>.
+  block_will_drop_with_drop_spawners_perk: Dieser Block wird nur droppen, wenn das
+    <red>drop_spawners</red> Perk aktiviert ist.
+  gui_click_to_buy: <yellow>Klick zum Kaufen</yellow>
+  perk_list_entry_active_perk: '- <gold>${perkname}</gold>'
+  admin_granted_perk_for_you: <red>${adminname}</red> hat dir die Rechte für das <red>${perkname}</red>
+    Perk eingerichtet und es für dich aktiviert.
+  not_enough_money: Du kannst dir dieses Perk nicht leisten.
+  perk_disabled_in_this_world: Das <red>${perkname}</red> Perk ist in dieser Spielwelt
+    deaktiviert.
+  transaction_unsuccessful: Die Transaktion war leider nicht erfolgreich.
+  block_will_drop_with_drop_more_blocks_perk: Dieser Block wird nur droppen, wenn
+    das <red>drop_more_blocks</red> Perk aktiviert ist.
+  perk_successfully_deactivated: Das <red>${perkname}</red> Perk wurde erfolgreich
+    deaktiviert.
+  no_perk_permission: Du hast nicht die Berechtigung, dieses Perk zu aktivieren.
+  admin_revoked_perk_from_you: <red>${adminname}</red> hat dir die Berechtigung für
+    das <red>${perkname}</red> Perk entzogen und es deaktiviert.
+  gui_next_page: <yellow>Nächste Seite</yellow>
+  perk_revoked_and_deactivated: Die Berechtigung für das <red>${perkname}</red> Perk
+    wurde entzogen und das Perk deaktiviert.
+  cannot_take_perk_permissions_from_player: Kann die Berechtigung <red>${perkpermissions}</red>
+    vom Spieler <red>${playername}</red> nicht entziehen.
+  gui_perk_is_enabled: <gradient:dark_green:green>Perk ist aktiviert</gradient>
+  perk_automatically_enabled: Das <red>${perkname}</red> Perk wurde automatisch aktiviert.
+  perk_normally_disabled_in_this_world: Normalerweise wäre das <red>${perkname}</red>
+    Perk in der Spielwelt des Spielers deaktiviert.<newline>Da du aber Admin bist
+    und (hoffentlich) weißt was du tust, wird das Plugin diese Aktion nicht unterbinden.
+  mass_grant_successful: Die Berechtigungen für das <red>${perkname}</red> Perk wurden
+    für <red>${successfulplayers} players</red> von <red>${totalplayers}</red> Spielern
+    erfolgreich eingerichtet.
+  perk_revoked_and_deactivated_offline: Die Berechtigung für das <red>${perkname}</red>
+    Perk wurde dem OFFLINE-Spieler <red>${playername}</red> erfolgreich entzogen und
+    das Perk deaktiviert.
+  player_already_activated_perk: Du hast das <red>${perkname}</red> Perk bereits aktiviert.
+  admin_deactivated_your_perk: <red>${adminname}</red> hat dein <red>${perkname}</red>
+    Perk deaktiviert.
+  perk_granted_admin: Die Berechtigung für das <red>${perkname}</red> Perk wurde für
+    Spieler <red>${playername}</red> erfolgreich gewährt und das Perk aktiviert.
+  admin_notice_effect_perk_offline: Bitte beachte, dass das <red>${perkname}</red>
+    Perk ein Effekt-Perk ist. Es ist nicht möglich, Offline-Spielern Effekte zu geben
+    oder zu nehmen, es KANN also vorkommen, dass der Effekt bei Rückkehr des Spielers
+    noch aktiv ist, auch wenn das Perk ordnungsgemäß deaktiviert ist!
+  perk_revoked_and_deactivated_online: Die Berechtigung für das <red>${perkname}</red>
+    Perk wurde dem Spieler <red>${playername}</red> entzogen und das Perk deaktiviert.
