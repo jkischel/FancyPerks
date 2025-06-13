@@ -56,9 +56,9 @@ offline players are counting into that number!).
 #### General thoughts about admin commands:
 In short words: This plugin has no brain, use your own :) 
 
-That means, the plugin assumes that as an admin you know what you are doing. So **the plugin does not **
-**check**, for example, **whether a perk is allowed in the player's world or whether the player has **
-**bought that perk at all** if you're using the admin commands (that's _your_ job as admin!). 
+That means, the plugin assumes that as an admin you know what you are doing. So **the plugin does not**
+**check**, for example, **whether a perk is allowed in the player's world or whether the player has**
+**bought that perk at all** if you're using the admin commands (that's _your_ job as admin!).
 So if you fire an admin command, the plugin does exactly what you tell it to do (if it's possible).
 
 It is also important to keep in mind that if you activate, deactivate, enable or disable a perk for an 
@@ -178,19 +178,22 @@ If the user doesn't already have the permission for this perk, can he purchase i
 If buyable=true, for how much ingame currency?
  
 ```
-  effectStrength: 0
-```
-In effect perks, you can define the strength, beginning from 0 (which equals Level I).
-
-```
   display_item: WATER_BUCKET
 ```
 Which item shall be used for displaying it in the GUI?
 
+#### Perk-specific parameters
+**Effect perks**
+```
+  effectStrength: 0
+```
+In effect perks, you can define the strength, beginning from 0 (which equals Level I).
+
+**Double Drop perk**
 ```
   blacklist: []
 ```
-The *double_drop* perk does support blacklisting mobs that will not generate double drops (as a dupe protection).
+The double_drop perk supports blacklisting mobs that will not generate double drops (e.g. as a dupe protection).
 Example:
 ```
   blacklist:
@@ -199,6 +202,12 @@ Example:
   - FOX
   - ALLAY
 ```
+
+**Drop More Blocks and Drop Spawners perk**
+```
+  block_mining_supported_blocks: true
+```
+If true, it will prevent the player from accidently destroying rare blocks and spawners from breaking if the perk is not enabled. The player can still destroy the block by sneaking while mining the block.
 
 ## Perks
 
